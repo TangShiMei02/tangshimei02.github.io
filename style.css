@@ -45,3 +45,30 @@ p {
 .github-link:hover {
   color: #ff7a7a;
 }
+/* 夜间模式变量 */
+body.dark {
+  --bg: #1e1e1e;
+  --card-bg: #2c2c2c;
+  --text: #f0f0f0;
+  --accent: #ff7a7a;
+}
+
+/* 切换按钮样式 */
+.theme-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform .3s;
+}
+.theme-btn:hover {
+  transform: scale(1.2);
+}
+
+/* 让 body 平滑变色 */
+body {
+  transition: background .3s, color .3s;
+}
