@@ -128,3 +128,34 @@ body.dark {
 @media (max-width: 600px) {
   h1 { font-size: 2.4rem; }
 }
+
+
+
+/* 按钮样式 */
+.btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 6px 14px;
+  background: var(--card-bg); /* 使用变量 */
+  color: var(--text);
+  border-radius: var(--radius);
+  font-size: 14px;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* 夜间模式下按钮样式 */
+body.dark .btn {
+  background: var(--card-bg); /* 夜间模式下按钮背景 */
+  color: var(--text);
+}
+
+body.dark .btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
