@@ -1,0 +1,16 @@
+body {
+  background: #fdf6ec;
+  font-family: "Comic Neue", cursive;
+  color: #333;
+  text-align: center;
+  padding-top: 100px;
+}
+
+h1 {
+  font-size: 3rem;
+  color: #ff7a7a;
+}
+
+p {
+  font-size: 1.2rem;
+}
