@@ -1,12 +1,45 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TangShiMei · 个人博客</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Hello, TangShiMei!</h1>
-  <p>第一步完成！</p>
+  <header>
+    <h1>TangShiMei</h1>
+    <p class="subtitle">手写卡片 · 记录灵感</p>
+  </header>
+
+  <main class="card-grid">
+    <!-- 卡片 1：关于我 -->
+    <article class="card">
+      <img src="img/about.svg" alt="关于我插画" class="svg-illu" />
+      <h2>关于我</h2>
+      <p>一个喜欢手绘与代码的创作者，正在用卡片堆出自己的宇宙。</p>
+      <a href="about.html" class="btn">了解更多</a>
+    </article>
+
+    <!-- 卡片 2：最新随笔 -->
+    <article class="card">
+      <img src="img/posts.svg" alt="最新随笔插画" class="svg-illu" />
+      <h2>最新随笔</h2>
+      <p>《如何让像素风插画动起来》已发布，点击查看。</p>
+    </article>
+
+    <!-- 卡片 3：联系我 -->
+    <article class="card">
+      <img src="img/contact.svg" alt="联系我插画" class="svg-illu" />
+      <h2>联系我</h2>
+      <p>Email: me@tangshimei.com</p>
+    </article>
+  </main>
+
+  <footer>
+    <small>© 2025 TangShiMei</small>
+  </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
