@@ -35,3 +35,13 @@ p {
 .btn:hover {
   background: #ff5252;
 }
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #333;
+  text-decoration: none;
+}
+.github-link:hover {
+  color: #ff7a7a;
+}
