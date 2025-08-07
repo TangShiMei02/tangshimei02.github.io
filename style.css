@@ -72,3 +72,4 @@ body.dark {
 body {
   transition: background .3s, color .3s;
 }
+header { position: relative; }
