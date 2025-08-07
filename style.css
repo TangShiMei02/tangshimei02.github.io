@@ -1,21 +1,21 @@
-/* ===== 1. CSS 变量 ===== */
+/* ===== 1. 颜色变量 ===== */
 :root {
   --bg: #fdf6ec;
   --card-bg: #fff;
   --text: #333;
   --accent: #ff7a7a;
-  --radius: 24px;
+  --radius: 16px;
   --shadow: 4px 8px 20px rgba(0,0,0,.08);
   --font: "Comic Neue", cursive;
 }
-
-/* ===== 2. 全局样式 ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+:root.dark {
+  --bg: #1e1e1e;
+  --card-bg: #2c2c2c;
+  --text: #f0f0f0;
 }
 
+/* ===== 2. 全局 ===== */
+* { margin:0; padding:0; box-sizing:border-box; }
 body {
   background: var(--bg);
   color: var(--text);
@@ -25,23 +25,11 @@ body {
   padding: 40px 20px;
   transition: background .3s, color .3s;
 }
+header { position: relative; margin-bottom: 60px; }
+h1 { font-size: 3rem; color: var(--accent); }
+.subtitle { font-size: 1.1rem; opacity: .7; }
 
-header {
-  position: relative;
-  margin-bottom: 60px;
-}
-
-h1 {
-  font-size: 3rem;
-  color: var(--accent);
-}
-
-.subtitle {
-  font-size: 1.1rem;
-  opacity: .7;
-}
-
-/* ===== 3. 卡片网格 ===== */
+/* ===== 3. 卡片 ===== */
 .card-grid {
   display: grid;
   gap: 32px;
@@ -49,25 +37,16 @@ h1 {
   margin: 0 auto;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
-
 .card {
   background: var(--card-bg);
   border-radius: var(--radius);
   padding: 32px 24px;
   box-shadow: var(--shadow);
-  transition: transform .3s ease;
+  transition: transform .3s;
 }
-.card:hover {
-  transform: translateY(-6px);
-}
-.card h2 {
-  margin: 12px 0 8px;
-  font-size: 1.5rem;
-}
-.card p {
-  font-size: 1rem;
-  opacity: .8;
-}
+.card:hover { transform: translateY(-6px); }
+.card h2 { margin: 12px 0 8px; font-size: 1.5rem; }
+.card p { font-size: 1rem; opacity: .8; }
 
 /* ===== 4. 插画 & 按钮 ===== */
 .svg-illu {
@@ -75,20 +54,17 @@ h1 {
   height: 120px;
   object-fit: contain;
 }
-
 .btn {
   display: inline-block;
   margin-top: 12px;
   padding: 6px 14px;
   background: var(--accent);
   color: #fff;
-  border-radius: 16px;
+  border-radius: var(--radius);
   font-size: 14px;
   text-decoration: none;
 }
-.btn:hover {
-  background: #ff5252;
-}
+.btn:hover { background: #ff5252; }
 
 /* ===== 5. GitHub 链接 ===== */
 .github-link {
@@ -98,18 +74,9 @@ h1 {
   color: var(--text);
   text-decoration: none;
 }
-.github-link:hover {
-  color: var(--accent);
-}
+.github-link:hover { color: var(--accent); }
 
-/* ===== 6. 夜间模式 ===== */
-body.dark {
-  --bg: #1e1e1e;
-  --card-bg: #2c2c2c;
-  --text: #f0f0f0;
-}
-
-/* ===== 7. 夜间模式按钮 ===== */
+/* ===== 6. 夜间按钮 ===== */
 .theme-btn {
   position: absolute;
   top: 20px;
@@ -120,42 +87,7 @@ body.dark {
   cursor: pointer;
   transition: transform .3s;
 }
-.theme-btn:hover {
-  transform: scale(1.2);
-}
+.theme-btn:hover { transform: scale(1.2); }
 
-/* ===== 8. 响应式 ===== */
-@media (max-width: 600px) {
-  h1 { font-size: 2.4rem; }
-}
-
-
-
-/* 按钮样式 */
-.btn {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 6px 14px;
-  background: var(--card-bg); /* 使用变量 */
-  color: var(--text);
-  border-radius: var(--radius);
-  font-size: 14px;
-  text-decoration: none;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.btn:hover {
-  background: var(--accent);
-  color: #fff;
-}
-
-/* 夜间模式下按钮样式 */
-body.dark .btn {
-  background: var(--card-bg); /* 夜间模式下按钮背景 */
-  color: var(--text);
-}
-
-body.dark .btn:hover {
-  background: var(--accent);
-  color: #fff;
-}
+/* ===== 7. 响应式 ===== */
+@media (max-width: 600px) { h1 { font-size: 2.4rem; } }
