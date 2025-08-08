@@ -303,3 +303,13 @@ body {
   color: var(--text);
   font-family: 'Nunito', sans-serif;
 }
+
+
+/* 语录切换动画 */
+#hitokoto, #hitokoto-from {
+  transition: opacity 0.5s ease-in-out; /* 淡入淡出效果，0.5秒完成 */
+}
+/* 切换时的过渡状态 */
+.hitokoto-fade {
+  opacity: 0; /* 完全透明 */
+}

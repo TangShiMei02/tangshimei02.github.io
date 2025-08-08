@@ -66,22 +66,52 @@ function changeBackground() {
 // 每300000毫秒（5分钟）换一次背景
 setInterval(changeBackground, 300000);
 
+
 // 一言语录功能
 function loadHitokoto() {
-  fetch('https://v1.hitokoto.cn/?max_length=40')
-    .then(response => response.json())
-    .then(data => {
-      const hitokotoElem = document.getElementById('hitokoto');
-      if (hitokotoElem)
-        hitokotoElem.textContent = data.hitokoto;
-    })
-    .catch(() => {
-      const hitokotoElem = document.getElementById('hitokoto');
-      if (hitokotoElem)
-        hitokotoElem.textContent = '一言获取失败啦~';
-    });
+  // 先获取语录和出处的元素
+  const hitokotoElem = document.getElementById('hitokoto');
+  const fromElem = document.getElementById('hitokoto-from');
+  
+  // 添加强制透明的类，触发淡出动画
+  if (hitokotoElem) hitokotoElem.classList.add('hitokoto-fade');
+  if (fromElem) fromElem.classList.add('hitokoto-fade');
+  
+  // 等淡出动画结束（500毫秒，和CSS里的时间对应），再加载新内容
+  setTimeout(() => {
+    fetch('https://v1.hitokoto.cn/?max_length=40')
+      .then(response => response.json())
+      .then(data => {
+        if (hitokotoElem) {
+          hitokotoElem.textContent = data.hitokoto;
+          // 移除透明类，触发淡入动画
+          hitokotoElem.classList.remove('hitokoto-fade');
+        }
+        if (fromElem) {
+          if (data.from) {
+            fromElem.textContent = `—— ${data.from}`;
+          } else {
+            fromElem.textContent = '';
+          }
+          // 移除透明类，触发淡入动画
+          fromElem.classList.remove('hitokoto-fade');
+        }
+      })
+      .catch(() => {
+        if (hitokotoElem) {
+          hitokotoElem.textContent = '一言获取失败啦~';
+          hitokotoElem.classList.remove('hitokoto-fade');
+        }
+        if (fromElem) {
+          fromElem.textContent = '';
+          fromElem.classList.remove('hitokoto-fade');
+        }
+      });
+  }, 500); // 这里的时间要和CSS里的 transition 时间一样
 }
+
+
 // 页面加载就执行一次
 loadHitokoto();
 // 每隔60秒自动切换一句
-setInterval(loadHitokoto,20000);
+setInterval(loadHitokoto,15000);
