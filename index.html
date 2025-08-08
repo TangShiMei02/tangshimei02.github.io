@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TangShiMei · 个人博客</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- 引入Font Awesome图标库（包含Telegram图标） -->
+  <!-- 引入Font Awesome图标库 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     /* 社交图标样式 */
@@ -29,7 +29,10 @@
   <header style="position: relative;">
     <h1>TangShiMei</h1>
     <p class="subtitle">手写卡片 · 记录灵感</p>
+    <!-- 一言语录显示区 -->
     <p id="hitokoto" style="font-size:1.2em;margin-bottom:24px;">正在加载一言...</p>
+    <small id="hitokoto-from" style="font-size:0.9em;color:#888;"></small>
+    <!-- 夜间模式切换按钮 -->
     <button id="theme-toggle" class="theme-btn" title="切换夜间模式">🌙</button>
   </header>
 
@@ -53,7 +56,7 @@
       <a href="posts.html" class="btn">阅读全文</a>
     </article>
 
-    <!-- 卡片 3：联系我（已添加Telegram图标） -->
+    <!-- 卡片 3：联系我 -->
     <article class="card">
       <img src="img/contact.svg" alt="联系我插画" class="svg-illu" />
       <h2>联系我</h2>
@@ -71,20 +74,29 @@
         <a href="mailto:yangqinhao1101@163.com" title="邮箱">
           <i class="fas fa-envelope"></i>
         </a>
-        <!-- 添加Telegram图标 -->
         <a href="#" target="_blank" title="Telegram">
           <i class="fab fa-telegram-plane"></i>
         </a>
       </div>
       <p>点击图标即可联系我~</p>
     </article>
+
+    <!-- 卡片 4：留言板 -->
+    <article class="card">
+      <svg viewBox="0 0 100 100" class="svg-illu" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="30" width="60" height="40" rx="5" fill="var(--card-bg)" stroke="#7a9eff" stroke-width="2"/>
+        <line x1="30" y1="45" x2="70" y2="45" stroke="#7a9eff" stroke-width="2"/>
+        <line x1="30" y1="55" x2="60" y2="55" stroke="#7a9eff" stroke-width="2"/>
+        <line x1="30" y1="65" x2="50" y2="65" stroke="#7a9eff" stroke-width="2"/>
+      </svg>
+      <h2>留言板</h2>
+      <p>写下你的想法或建议，我会认真阅读每一条留言~</p>
+      <a href="guestbook.html" class="btn">去留言</a>
+    </article>
   </main>
 
   <footer>
     <small>© 2025 TangShiMei</small>
-    <p style="margin-top: 12px;">
-      <a href="guestbook.html" class="btn">留言板</a>
-    </p>
   </footer>
 
   <script src="js/main.js"></script>
