@@ -5,29 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TangShiMei · 个人博客</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-
   <header style="position: relative;">
- <h1 class="site-title">TangShiMei</h1>
-<p class="subtitle">手写卡片 · 记录灵感</p>
+    <h1>TangShiMei</h1>
+    <p class="subtitle">手写卡片 · 记录灵感</p>
+    <!-- 一言语录显示区，添加在这里 -->
+    <p id="hitokoto" style="font-size:1.2em;margin-bottom:24px;">正在加载一言...</p>
     <!-- 放在标题右侧，按钮可见 -->
     <button id="theme-toggle" class="theme-btn" title="切换夜间模式">🌙</button>
   </header>
 
   <main class="card-grid">
-<!-- 在线语录区域 -->
-<div class="quote-container">
-  <p id="quote-text">加载中...</p>
-  <p id="quote-author" style="text-align: right; margin-top: 8px;">—— 加载中 ——</p>
-</div>
     <!-- 卡片 1：关于我 -->
     <article class="card">
-<svg viewBox="0 0 100 100" class="svg-illu" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="50" cy="40" r="20" fill="var(--card-bg)" stroke="#ff7a7a" stroke-width="2"/>
-  <path d="M30 80 Q50 60 70 80" fill="none" stroke="#ff7a7a" stroke-width="2" stroke-linecap="round"/>
-</svg>
+      <svg viewBox="0 0 100 100" class="svg-illu" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="40" r="20" fill="var(--card-bg)" stroke="#ff7a7a" stroke-width="2"/>
+        <path d="M30 80 Q50 60 70 80" fill="none" stroke="#ff7a7a" stroke-width="2" stroke-linecap="round"/>
+      </svg>
       <h2>关于我</h2>
       <p>一个喜欢手绘与代码的创作者，正在用卡片堆出自己的宇宙。</p>
       <a href="about.html" class="btn">了解更多</a>
@@ -45,15 +40,6 @@
       <img src="img/contact.svg" alt="联系我插画" class="svg-illu" />
       <h2>联系我</h2>
       <p>Email: yangqinhao1101@163.com</p>
-    </article>
-  
-
-    <!-- 卡片 4：我的文章 -->
-    <article class="card">
-      <img src="img/posts.svg" alt="文章列表插画" class="svg-illu" />
-      <h2>我的文章</h2>
-      <p>分享手绘技巧、代码笔记和生活灵感，持续更新中~</p>
-      <a href="posts.html" class="btn">查看全部</a>
     </article>
   </main>
 

@@ -16,14 +16,14 @@ toggleBtn.addEventListener('click', () => {
   toggleBtn.textContent = isDark ? '☀️' : '🌙';
 });
 
-
 // 显示当前时间
 function updateTime() {
   const now = new Date();
   // 格式化时间为 时:分:秒 星期几
   const timeStr = now.toLocaleTimeString();
   const weekStr = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][now.getDay()];
-  document.getElementById('time-display').textContent = `${timeStr} ${weekStr}`;
+  const timeElem = document.getElementById('time-display');
+  if (timeElem) timeElem.textContent = `${timeStr} ${weekStr}`;
 }
 // 每秒更新一次时间
 updateTime();
@@ -44,16 +44,18 @@ function getWeather() {
         .then(weather => {
           if (weather.code === '200') {
             const now = weather.now;
-            document.getElementById('weather-display').textContent = 
-              `${city} ${now.text} ${now.temp}°C\n体感${now.feelsLike}°C`;
+            const weatherElem = document.getElementById('weather-display');
+            if (weatherElem)
+              weatherElem.textContent = `${city} ${now.text} ${now.temp}°C\n体感${now.feelsLike}°C`;
           } else {
-            document.getElementById('weather-display').textContent = '天气获取失败';
+            const weatherElem = document.getElementById('weather-display');
+            if (weatherElem)
+              weatherElem.textContent = '天气获取失败';
           }
         });
     });
 }
 getWeather(); // 页面加载时获取天气
-
 
 // 定时更换背景图（每5分钟换一次）
 function changeBackground() {
@@ -63,3 +65,23 @@ function changeBackground() {
 }
 // 每300000毫秒（5分钟）换一次背景
 setInterval(changeBackground, 300000);
+
+// 一言语录功能
+function loadHitokoto() {
+  fetch('https://v1.hitokoto.cn/?max_length=40')
+    .then(response => response.json())
+    .then(data => {
+      const hitokotoElem = document.getElementById('hitokoto');
+      if (hitokotoElem)
+        hitokotoElem.textContent = data.hitokoto;
+    })
+    .catch(() => {
+      const hitokotoElem = document.getElementById('hitokoto');
+      if (hitokotoElem)
+        hitokotoElem.textContent = '一言获取失败啦~';
+    });
+}
+// 页面加载就执行一次
+loadHitokoto();
+// 每隔60秒自动切换一句
+setInterval(loadHitokoto,20000);
