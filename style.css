@@ -53,6 +53,8 @@ h1 {
 .card {
   background: var(--card-bg);
   border-radius: var(--radius);
+  border-radius: 16px;
+  border: 3px dashed #ff9e9e;
   padding: 32px 24px;
   box-shadow: var(--shadow);
   transition: transform .3s ease;
@@ -191,7 +193,6 @@ body.dark .btn:hover {
   font-family: 'Georgia', serif;
   display: inline-block;
   
-  padding-left: 15px;
   text-shadow: 0 2px 3px rgba(0,0,0,0.1);
   background: linear-gradient(to right, var(--bg), var(--card-bg)); /* 使用背景变量 */
   padding: 12px 20px;
