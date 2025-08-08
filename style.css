@@ -159,3 +159,28 @@ body.dark .btn:hover {
   background: var(--accent);
   color: #fff;
 }
+
+
+/* ===== 9. 移动端优化 ===== */
+@media (max-width: 600px) {
+  body {
+    padding: 20px 15px; /* 增加安全边距 */
+  }
+  
+  .card {
+    padding: 25px 15px; /* 卡片内边距优化 */
+  }
+  
+  /* 修复图片溢出问题 */
+  .svg-illu {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* 修复按钮点击区域 */
+  .btn {
+    padding: 8px 16px;
+    display: block; /* 让按钮独占一行 */
+    margin: 15px auto 0; /* 居中显示 */
+  }
+}
