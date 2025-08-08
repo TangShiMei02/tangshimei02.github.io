@@ -190,7 +190,7 @@ body.dark .btn:hover {
 .site-title {
   font-family: 'Georgia', serif;
   display: inline-block;
-  border-left: 4px solid var(--accent); /* 使用主题色变量 */
+  
   padding-left: 15px;
   text-shadow: 0 2px 3px rgba(0,0,0,0.1);
   background: linear-gradient(to right, var(--bg), var(--card-bg)); /* 使用背景变量 */
@@ -206,4 +206,11 @@ body.dark .btn:hover {
   font-size: 1.2rem;
   letter-spacing: 1px;
   opacity: 0.8;
+}
+
+/* === 修复夜间模式标题 === */
+body.dark .site-title {
+  background: linear-gradient(to right, #2c2c2c, #1e1e1e);
+  border-left-color: #ff7a7a;
+  color: #f0f0f0;
 }
