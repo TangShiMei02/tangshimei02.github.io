@@ -184,3 +184,26 @@ body.dark .btn:hover {
     margin: 15px auto 0; /* 居中显示 */
   }
 }
+
+
+/* ===== 10. 学术风标题 ===== */
+.site-title {
+  font-family: 'Georgia', serif;
+  display: inline-block;
+  border-left: 4px solid var(--accent); /* 使用主题色变量 */
+  padding-left: 15px;
+  text-shadow: 0 2px 3px rgba(0,0,0,0.1);
+  background: linear-gradient(to right, var(--bg), var(--card-bg)); /* 使用背景变量 */
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  color: var(--text); /* 使用文字颜色变量 */
+}
+
+/* 副标题优化 */
+.subtitle {
+  margin-top: 15px;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
