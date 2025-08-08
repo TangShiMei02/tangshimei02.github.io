@@ -313,3 +313,28 @@ body {
 .hitokoto-fade {
   opacity: 0; /* 完全透明 */
 }
+
+
+
+/* 统一图标颜色适配夜间模式 */
+/* GitHub图标 */
+.github-link svg {
+  fill: var(--text); /* 跟随文本颜色 */
+  transition: fill 0.3s ease;
+}
+
+/* 夜间模式下的GitHub图标 */
+body.dark .github-link svg {
+  fill: var(--text); /* 夜间模式文本为浅色，图标同步 */
+}
+
+/* 夜间模式切换按钮图标（文字形式）*/
+.theme-btn {
+  color: var(--text); /* 按钮文字颜色跟随文本 */
+  transition: color 0.3s ease;
+}
+
+/* 确保按钮在夜间模式下颜色正确 */
+body.dark .theme-btn {
+  color: var(--text);
+}
