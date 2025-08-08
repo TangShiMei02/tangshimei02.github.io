@@ -266,3 +266,40 @@ pre {
   overflow-x: auto;
   margin: 20px 0;
 }
+
+
+.sidebar-card {
+  position: fixed; /* 固定在页面右侧 */
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%); /* 垂直居中 */
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  border: 2px dashed #ff9e9e; /* 保持手绘风格 */
+  width: 250px;
+  z-index: 10; /* 确保在其他内容上方 */
+}
+
+#time-display {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #ff9e9e;
+}
+
+
+body {
+  margin: 0;
+  padding: 40px 0;
+  min-height: 100vh;
+  background-color: var(--bg);
+  background-image: url('https://source.unsplash.com/random/1920x1080/?nature,light'); /* 初始背景图 */
+  background-size: cover; /* 图片铺满屏幕 */
+  background-attachment: fixed; /* 背景固定，不随滚动移动 */
+  background-position: center;
+  color: var(--text);
+  font-family: 'Nunito', sans-serif;
+}
