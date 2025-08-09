@@ -7,54 +7,54 @@ from tkinter import ttk, simpledialog, messagebox
 class DeployHelper:
     def __init__(self, parent):
         self.parent = parent
-        self.repo_path = os.getcwd()  # Ä¬ÈÏµ±Ç°Ä¿Â¼
+        self.repo_path = os.getcwd()  # é»˜è®¤å½“å‰ç›®å½•
         self.remote_repo = ""
         self.branch = "main"
         
     def set_repo_info(self, repo_path, remote_repo, branch):
-        """ÉèÖÃ²Ö¿âĞÅÏ¢"""
+        """è®¾ç½®ä»“åº“ä¿¡æ¯"""
         self.repo_path = repo_path
         self.remote_repo = remote_repo
         self.branch = branch or "main"
     
     def run_deploy(self):
-        """Ö´ĞĞ²¿ÊğÁ÷³Ì"""
-        # »ñÈ¡¸üĞÂËµÃ÷
+        """æ‰§è¡Œéƒ¨ç½²æµç¨‹"""
+        # è·å–æ›´æ–°è¯´æ˜
         msg = simpledialog.askstring(
-            "¸üĞÂËµÃ÷", 
-            "ÇëÊäÈë¸üĞÂËµÃ÷£º",
+            "æ›´æ–°è¯´æ˜", 
+            "è¯·è¾“å…¥æ›´æ–°è¯´æ˜ï¼š",
             parent=self.parent,
             initialvalue=f"update: {time.strftime('%Y-%m-%d %H:%M')}"
         )
         
-        if msg is None:  # ÓÃ»§È¡Ïû
+        if msg is None:  # ç”¨æˆ·å–æ¶ˆ
             return False
             
         if not msg.strip():
             msg = f"update: {time.strftime('%Y-%m-%d')}"
         
-        # ÏÔÊ¾²¿Êğ½ø¶È´°¿Ú
+        # æ˜¾ç¤ºéƒ¨ç½²è¿›åº¦çª—å£
         progress_window = tk.Toplevel(self.parent)
-        progress_window.title("ÕıÔÚ²¿Êğ")
+        progress_window.title("æ­£åœ¨éƒ¨ç½²")
         progress_window.geometry("500x300")
         progress_window.transient(self.parent)
         progress_window.grab_set()
         
-        # ½ø¶ÈÌõ
-        ttk.Label(progress_window, text="²¿Êğ½ø¶È£º").pack(pady=10, anchor=tk.W, padx=20)
+        # è¿›åº¦æ¡
+        ttk.Label(progress_window, text="éƒ¨ç½²è¿›åº¦ï¼š").pack(pady=10, anchor=tk.W, padx=20)
         progress = ttk.Progressbar(progress_window, length=450, mode='indeterminate')
         progress.pack(pady=10)
         progress.start()
         
-        # ÈÕÖ¾ÇøÓò
-        ttk.Label(progress_window, text="²¿ÊğÈÕÖ¾£º").pack(pady=10, anchor=tk.W, padx=20)
+        # æ—¥å¿—åŒºåŸŸ
+        ttk.Label(progress_window, text="éƒ¨ç½²æ—¥å¿—ï¼š").pack(pady=10, anchor=tk.W, padx=20)
         log_text = tk.Text(progress_window, height=8, wrap=tk.WORD)
         log_text.pack(fill=tk.BOTH, expand=True, padx=20, pady=10)
         log_scroll = ttk.Scrollbar(log_text, command=log_text.yview)
         log_scroll.pack(side=tk.RIGHT, fill=tk.Y)
         log_text.config(yscrollcommand=log_scroll.set, state=tk.DISABLED)
         
-        # ¸üĞÂÈÕÖ¾µÄº¯Êı
+        # æ›´æ–°æ—¥å¿—çš„å‡½æ•°
         def update_log(message):
             log_text.config(state=tk.NORMAL)
             log_text.insert(tk.END, f"{time.strftime('%H:%M:%S')} - {message}\n")
@@ -62,74 +62,74 @@ class DeployHelper:
             log_text.config(state=tk.DISABLED)
             progress_window.update_idletasks()
         
-        # ÔÚĞÂÏß³ÌÖĞÖ´ĞĞ²¿ÊğÃüÁî
-        result = [False]  # ÓÃÁĞ±í´æ´¢½á¹û£¬ÒÔ±ãÔÚÄÚ²¿º¯ÊıÖĞĞŞ¸Ä
+        # åœ¨æ–°çº¿ç¨‹ä¸­æ‰§è¡Œéƒ¨ç½²å‘½ä»¤
+        result = [False]  # ç”¨åˆ—è¡¨å­˜å‚¨ç»“æœï¼Œä»¥ä¾¿åœ¨å†…éƒ¨å‡½æ•°ä¸­ä¿®æ”¹
         
         def deploy_thread():
             try:
-                # ¼ì²éÊÇ·ñÊÇGit²Ö¿â
+                # æ£€æŸ¥æ˜¯å¦æ˜¯Gitä»“åº“
                 if not os.path.exists(os.path.join(self.repo_path, ".git")):
-                    update_log("Î´·¢ÏÖGit²Ö¿â£¬ÕıÔÚ³õÊ¼»¯...")
+                    update_log("æœªå‘ç°Gitä»“åº“ï¼Œæ­£åœ¨åˆå§‹åŒ–...")
                     self.run_command("git init", update_log)
                 
-                # ¼ì²éÔ¶³Ì²Ö¿âÅäÖÃ
+                # æ£€æŸ¥è¿œç¨‹ä»“åº“é…ç½®
                 if self.remote_repo:
                     remotes = self.run_command("git remote", update_log, capture_output=True)
                     if "origin" not in remotes:
-                        update_log(f"Ìí¼ÓÔ¶³Ì²Ö¿â: {self.remote_repo}")
+                        update_log(f"æ·»åŠ è¿œç¨‹ä»“åº“: {self.remote_repo}")
                         self.run_command(f"git remote add origin {self.remote_repo}", update_log)
                     else:
-                        # ¼ì²éÔ¶³Ì²Ö¿âÊÇ·ñÆ¥Åä
+                        # æ£€æŸ¥è¿œç¨‹ä»“åº“æ˜¯å¦åŒ¹é…
                         current_remote = self.run_command("git remote get-url origin", update_log, capture_output=True)
                         if current_remote.strip() != self.remote_repo.strip():
-                            update_log(f"¸üĞÂÔ¶³Ì²Ö¿âµØÖ·Îª: {self.remote_repo}")
+                            update_log(f"æ›´æ–°è¿œç¨‹ä»“åº“åœ°å€ä¸º: {self.remote_repo}")
                             self.run_command(f"git remote set-url origin {self.remote_repo}", update_log)
                 
-                # ¼ì²é·ÖÖ§
+                # æ£€æŸ¥åˆ†æ”¯
                 branches = self.run_command("git branch --list", update_log, capture_output=True)
                 if f"*{self.branch}" not in branches and self.branch not in branches:
-                    update_log(f"´´½¨²¢ÇĞ»»µ½ {self.branch} ·ÖÖ§")
+                    update_log(f"åˆ›å»ºå¹¶åˆ‡æ¢åˆ° {self.branch} åˆ†æ”¯")
                     self.run_command(f"git checkout -b {self.branch}", update_log)
                 else:
-                    update_log(f"ÇĞ»»µ½ {self.branch} ·ÖÖ§")
+                    update_log(f"åˆ‡æ¢åˆ° {self.branch} åˆ†æ”¯")
                     self.run_command(f"git checkout {self.branch}", update_log)
                 
-                # À­È¡×îĞÂ´úÂë
-                update_log("À­È¡Ô¶³Ì×îĞÂ´úÂë...")
+                # æ‹‰å–æœ€æ–°ä»£ç 
+                update_log("æ‹‰å–è¿œç¨‹æœ€æ–°ä»£ç ...")
                 self.run_command(f"git pull origin {self.branch}", update_log, allow_failure=True)
                 
-                # Ìí¼ÓÎÄ¼ş
-                update_log("Ìí¼ÓÎÄ¼şµ½Ôİ´æÇø...")
+                # æ·»åŠ æ–‡ä»¶
+                update_log("æ·»åŠ æ–‡ä»¶åˆ°æš‚å­˜åŒº...")
                 self.run_command("git add .", update_log)
                 
-                # Ìá½»¸ü¸Ä
-                update_log(f"Ìá½»¸ü¸Ä: {msg}")
+                # æäº¤æ›´æ”¹
+                update_log(f"æäº¤æ›´æ”¹: {msg}")
                 self.run_command(f'git commit -m "{msg}"', update_log, allow_failure=True)
                 
-                # ÍÆËÍ¸ü¸Ä
-                update_log("ÍÆËÍ¸ü¸Äµ½Ô¶³Ì²Ö¿â...")
+                # æ¨é€æ›´æ”¹
+                update_log("æ¨é€æ›´æ”¹åˆ°è¿œç¨‹ä»“åº“...")
                 self.run_command(f"git push origin {self.branch}", update_log)
                 
-                update_log("²¿ÊğÍê³É£¡")
+                update_log("éƒ¨ç½²å®Œæˆï¼")
                 result[0] = True
                 
             except Exception as e:
-                update_log(f"²¿ÊğÊ§°Ü: {str(e)}")
+                update_log(f"éƒ¨ç½²å¤±è´¥: {str(e)}")
             finally:
                 progress.stop()
-                ttk.Button(progress_window, text="¹Ø±Õ", command=progress_window.destroy).pack(pady=10)
+                ttk.Button(progress_window, text="å…³é—­", command=progress_window.destroy).pack(pady=10)
         
-        # Æô¶¯²¿ÊğÏß³Ì
+        # å¯åŠ¨éƒ¨ç½²çº¿ç¨‹
         import threading
         threading.Thread(target=deploy_thread, daemon=True).start()
         
-        progress_window.wait_window()  # µÈ´ı´°¿Ú¹Ø±Õ
+        progress_window.wait_window()  # ç­‰å¾…çª—å£å…³é—­
         return result[0]
     
     def run_command(self, command, log_callback, capture_output=False, allow_failure=False):
-        """Ö´ĞĞÃüÁî²¢´¦ÀíÊä³ö"""
+        """æ‰§è¡Œå‘½ä»¤å¹¶å¤„ç†è¾“å‡º"""
         try:
-            # Ö´ĞĞÃüÁî
+            # æ‰§è¡Œå‘½ä»¤
             process = subprocess.Popen(
                 command,
                 cwd=self.repo_path,
@@ -137,10 +137,10 @@ class DeployHelper:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 encoding="utf-8",
-                errors="replace"  # ´¦Àí±àÂë´íÎó
+                errors="replace"  # å¤„ç†ç¼–ç é”™è¯¯
             )
             
-            # ÊµÊ±Êä³öÈÕÖ¾
+            # å®æ—¶è¾“å‡ºæ—¥å¿—
             output = []
             for line in process.stdout:
                 stripped_line = line.strip()
@@ -150,45 +150,45 @@ class DeployHelper:
             
             process.wait()
             
-            # ¼ì²é·µ»Ø´úÂë
+            # æ£€æŸ¥è¿”å›ä»£ç 
             if process.returncode != 0 and not allow_failure:
-                raise Exception(f"ÃüÁîÖ´ĞĞÊ§°Ü: {command} (·µ»Ø´úÂë: {process.returncode})")
+                raise Exception(f"å‘½ä»¤æ‰§è¡Œå¤±è´¥: {command} (è¿”å›ä»£ç : {process.returncode})")
                 
             return "\n".join(output) if capture_output else None
             
         except Exception as e:
-            log_callback(f"ÃüÁîÖ´ĞĞ´íÎó: {str(e)}")
+            log_callback(f"å‘½ä»¤æ‰§è¡Œé”™è¯¯: {str(e)}")
             if not allow_failure:
                 raise
             return None
 
-# µ¥¶ÀÔËĞĞÊ±µÄ²âÊÔ´úÂë
+# å•ç‹¬è¿è¡Œæ—¶çš„æµ‹è¯•ä»£ç 
 if __name__ == "__main__":
     root = tk.Tk()
-    root.withdraw()  # Òş²ØÖ÷´°¿Ú
+    root.withdraw()  # éšè—ä¸»çª—å£
     
     deployer = DeployHelper(root)
     
-    # »ñÈ¡²Ö¿âÂ·¾¶
+    # è·å–ä»“åº“è·¯å¾„
     repo_path = simpledialog.askstring(
-        "²Ö¿âÂ·¾¶", 
-        "ÇëÊäÈë²©¿Í²Ö¿âÂ·¾¶£º",
+        "ä»“åº“è·¯å¾„", 
+        "è¯·è¾“å…¥åšå®¢ä»“åº“è·¯å¾„ï¼š",
         initialvalue=os.getcwd()
     )
     
     if repo_path and os.path.exists(repo_path):
         deployer.set_repo_info(
             repo_path,
-            simpledialog.askstring("Ô¶³Ì²Ö¿â", "ÇëÊäÈëÔ¶³Ì²Ö¿âµØÖ·£º"),
-            simpledialog.askstring("·ÖÖ§", "ÇëÊäÈë·ÖÖ§Ãû³Æ£º", initialvalue="main")
+            simpledialog.askstring("è¿œç¨‹ä»“åº“", "è¯·è¾“å…¥è¿œç¨‹ä»“åº“åœ°å€ï¼š"),
+            simpledialog.askstring("åˆ†æ”¯", "è¯·è¾“å…¥åˆ†æ”¯åç§°ï¼š", initialvalue="main")
         )
         
         success = deployer.run_deploy()
         if success:
-            messagebox.showinfo("³É¹¦", "²¿ÊğÍê³É£¡¼¸·ÖÖÓºóË¢ĞÂÍøÒ³¼´¿É¿´µ½¸üĞÂ¡£")
+            messagebox.showinfo("æˆåŠŸ", "éƒ¨ç½²å®Œæˆï¼å‡ åˆ†é’Ÿååˆ·æ–°ç½‘é¡µå³å¯çœ‹åˆ°æ›´æ–°ã€‚")
         else:
-            messagebox.showerror("Ê§°Ü", "²¿Êğ¹ı³ÌÖĞ³öÏÖ´íÎó£¬Çë²é¿´ÈÕÖ¾¡£")
+            messagebox.showerror("å¤±è´¥", "éƒ¨ç½²è¿‡ç¨‹ä¸­å‡ºç°é”™è¯¯ï¼Œè¯·æŸ¥çœ‹æ—¥å¿—ã€‚")
     else:
-        messagebox.showerror("´íÎó", "ÎŞĞ§µÄ²Ö¿âÂ·¾¶")
+        messagebox.showerror("é”™è¯¯", "æ— æ•ˆçš„ä»“åº“è·¯å¾„")
     
     root.destroy()

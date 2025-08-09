@@ -6,17 +6,31 @@
   <title>TangShiMei 的秘密基地</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Nunito:wght@400;600&family=Comic+Neue:wght@400;700&family=Georgia&display=swap" rel="stylesheet">
   <style>
+    /* 统一CSS变量 - 合并冲突定义，保留核心变量 */
     :root {
       --primary: #667eea;
       --primary-dark: #564ba2;
       --secondary: #ff7a7a;
-      --light-bg: #f0f2f5;
+      --bg: #f0f2f5;
       --card-bg: #fff;
       --text: #333;
       --text-light: #666;
       --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --radius: 12px;
+      --font-main: 'Inter', 'Arial', sans-serif;
+      --font-display: 'Comic Neue', cursive;
+    }
+
+    /* 夜间模式变量 - 统一使用dark类控制 */
+    body.dark {
+      --bg: #1a1a2e;
+      --card-bg: #16213e;
+      --text: #f0f0f0;
+      --text-light: #bbbbbb;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
     * {
@@ -26,11 +40,13 @@
     }
 
     body {
-      font-family: 'Inter', 'Arial', sans-serif;
-      background-color: var(--light-bg);
+      font-family: var(--font-main);
+      background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
       overflow-x: hidden;
+      transition: background-color 0.3s, color 0.3s;
+      padding: 0; /* 移除重复的padding定义 */
     }
 
     .container {
@@ -58,6 +74,10 @@
       padding: 12px 0;
     }
 
+    body.dark .navbar.scrolled {
+      background: rgba(22, 33, 62, 0.95);
+    }
+
     .nav-container {
       display: flex;
       justify-content: space-between;
@@ -72,10 +92,15 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      font-family: var(--font-display);
     }
 
     .navbar.scrolled .logo {
       color: var(--primary);
+    }
+
+    body.dark .navbar.scrolled .logo {
+      color: var(--secondary);
     }
 
     .theme-toggle {
@@ -106,6 +131,10 @@
       transition: opacity 0.5s ease;
     }
 
+    body.dark .loader {
+      background: rgba(26, 26, 46, 0.8);
+    }
+
     .loader.hidden {
       opacity: 0;
       pointer-events: none;
@@ -114,8 +143,8 @@
     .loader-spinner {
       width: 40px;
       height: 40px;
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid var(--primary);
+      border: 4px solid var(--card-bg);
+      border-top: 4px solid var(--secondary);
       border-radius: 50%;
       animation: spin 1s linear infinite;
     }
@@ -164,6 +193,7 @@
       line-height: 1.2;
       position: relative;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      font-family: var(--font-display);
     }
 
     .hero h1::after {
@@ -214,6 +244,11 @@
       transform: translateX(-50%);
       opacity: 0;
       animation: fadeIn 1s forwards 0.5s;
+      font-family: 'Georgia', serif;
+      background: linear-gradient(to right, var(--bg), var(--card-bg));
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
     @keyframes fadeIn {
@@ -240,7 +275,7 @@
 
     .card {
       background: var(--card-bg);
-      border-radius: 12px;
+      border-radius: var(--radius);
       padding: 30px;
       box-shadow: var(--shadow);
       text-align: center;
@@ -250,6 +285,7 @@
       animation: fadeUp 0.6s forwards;
       position: relative;
       overflow: hidden;
+      border: 3px dashed var(--secondary);
     }
 
     .card::before {
@@ -285,6 +321,7 @@
       border-radius: 8px;
       margin-bottom: 20px;
       transition: var(--transition);
+      border: 2px dashed var(--secondary);
     }
 
     .card:hover .card-img {
@@ -307,6 +344,7 @@
       margin-bottom: 15px;
       font-size: 1.5rem;
       color: var(--text);
+      font-family: var(--font-display);
     }
 
     .card p {
@@ -315,6 +353,7 @@
       line-height: 1.7;
     }
 
+    /* 统一按钮样式 */
     .btn {
       display: inline-block;
       background-color: var(--primary);
@@ -326,6 +365,7 @@
       font-weight: 500;
       position: relative;
       overflow: hidden;
+      margin-top: 12px;
     }
 
     .btn::before {
@@ -349,6 +389,16 @@
       box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
     }
 
+    body.dark .btn {
+      background-color: var(--card-bg);
+      color: var(--text);
+    }
+
+    body.dark .btn:hover {
+      background-color: var(--secondary);
+      color: white;
+    }
+
     /* 社交链接 */
     .social-links {
       display: flex;
@@ -362,7 +412,7 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: white;
+      background: var(--card-bg);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -377,7 +427,17 @@
       color: white;
     }
 
-    /* 响应式设计 */
+    body.dark .social-links a {
+      background: var(--card-bg);
+      color: var(--secondary);
+    }
+
+    body.dark .social-links a:hover {
+      background: var(--secondary);
+      color: white;
+    }
+
+    /* 响应式设计 - 统一断点 */
     @media (max-width: 768px) {
       .hero h1 {
         font-size: 2.5rem;
@@ -396,17 +456,27 @@
       }
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
+      body {
+        padding: 0 15px;
+      }
+      
       .hero h1 {
         font-size: 2rem;
       }
 
       .card {
-        padding: 25px 20px;
+        padding: 25px 15px;
       }
 
       .card-img {
         height: 130px;
+      }
+
+      .btn {
+        padding: 8px 16px;
+        display: block;
+        margin: 15px auto 0;
       }
     }
   </style>
@@ -542,25 +612,26 @@
       }
     });
 
-    // 主题切换功能
+    // 主题切换功能 - 统一使用dark类控制
     const themeToggle = document.getElementById('theme-toggle');
+    
+    // 初始化主题状态
+    if (localStorage.getItem('theme') === 'dark' || 
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.body.classList.add('dark');
+      themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+    }
     
     themeToggle.addEventListener('click', function() {
       const icon = themeToggle.querySelector('i');
-      if (icon.classList.contains('fa-moon')) {
+      document.body.classList.toggle('dark');
+      
+      if (document.body.classList.contains('dark')) {
         icon.classList.replace('fa-moon', 'fa-sun');
-        document.body.style.setProperty('--light-bg', '#1a1a2e');
-        document.body.style.setProperty('--card-bg', '#16213e');
-        document.body.style.setProperty('--text', '#e94560');
-        document.body.style.setProperty('--text-light', '#f0f0f0');
-        document.body.style.setProperty('--shadow', '0 10px 30px rgba(0, 0, 0, 0.3)');
+        localStorage.setItem('theme', 'dark');
       } else {
         icon.classList.replace('fa-sun', 'fa-moon');
-        document.body.style.setProperty('--light-bg', '#f0f2f5');
-        document.body.style.setProperty('--card-bg', '#fff');
-        document.body.style.setProperty('--text', '#333');
-        document.body.style.setProperty('--text-light', '#666');
-        document.body.style.setProperty('--shadow', '0 10px 30px rgba(0, 0, 0, 0.08)');
+        localStorage.setItem('theme', 'light');
       }
     });
 
