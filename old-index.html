@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TangShiMei · 个人博客</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- 引入Font Awesome图标库 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* 社交图标样式 */
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin: 15px 0;
+    }
+    .social-icons a {
+      color: var(--text);
+      font-size: 24px;
+      transition: color 0.3s ease;
+    }
+    .social-icons a:hover {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <header style="position: relative;">
+    <h1>TangShiMei</h1>
+    <p class="subtitle">手写卡片 · 记录灵感</p>
+    <!-- 一言语录显示区 -->
+    <p id="hitokoto" style="font-size:1.2em;margin-bottom:24px;">正在加载一言...</p>
+    <small id="hitokoto-from" style="font-size:0.9em;color:#888;"></small>
+    <!-- 夜间模式切换按钮 -->
+    <button id="theme-toggle" class="theme-btn" title="切换夜间模式">🌙</button>
+  </header>
+
+  <main class="card-grid">
+    <!-- 卡片 1：关于我 -->
+    <article class="card">
+      <svg viewBox="0 0 100 100" class="svg-illu" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="40" r="20" fill="var(--card-bg)" stroke="#ff7a7a" stroke-width="2"/>
+        <path d="M30 80 Q50 60 70 80" fill="none" stroke="#ff7a7a" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <h2>关于我</h2>
+      <p>一个喜欢手绘与代码的创作者，正在用卡片堆出自己的宇宙。</p>
+      <a href="about.html" class="btn">了解更多</a>
+    </article>
+
+    <!-- 卡片 2：最新随笔 -->
+    <article class="card">
+      <img src="img/posts.svg" alt="最新随笔插画" class="svg-illu" />
+      <h2>最新随笔</h2>
+      <p>《如何让像素风插画动起来》已发布，点击查看。</p>
+      <a href="posts.html" class="btn">阅读全文</a>
+    </article>
+
+    <!-- 卡片 3：联系我 -->
+    <article class="card">
+      <img src="img/contact.svg" alt="联系我插画" class="svg-illu" />
+      <h2>联系我</h2>
+      <!-- 社交图标区域 -->
+      <div class="social-icons">
+        <a href="https://github.com/Tang-is-harding" target="_blank" title="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="#" target="_blank" title="QQ">
+          <i class="fab fa-qq"></i>
+        </a>
+        <a href="#" target="_blank" title="微信">
+          <i class="fab fa-weixin"></i>
+        </a>
+        <a href="mailto:yangqinhao1101@163.com" title="邮箱">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <a href="#" target="_blank" title="Telegram">
+          <i class="fab fa-telegram-plane"></i>
+        </a>
+      </div>
+      <p>点击图标即可联系我~</p>
+    </article>
+
+    <!-- 卡片 4：留言板 -->
+    <article class="card">
+      <svg viewBox="0 0 100 100" class="svg-illu" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="30" width="60" height="40" rx="5" fill="var(--card-bg)" stroke="#7a9eff" stroke-width="2"/>
+        <line x1="30" y1="45" x2="70" y2="45" stroke="#7a9eff" stroke-width="2"/>
+        <line x1="30" y1="55" x2="60" y2="55" stroke="#7a9eff" stroke-width="2"/>
+        <line x1="30" y1="65" x2="50" y2="65" stroke="#7a9eff" stroke-width="2"/>
+      </svg>
+      <h2>留言板</h2>
+      <p>写下你的想法或建议，我会认真阅读每一条留言~</p>
+      <a href="guestbook.html" class="btn">去留言</a>
+    </article>
+  </main>
+
+  <footer>
+    <small>© 2025 TangShiMei</small>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
