@@ -1,4 +1,4 @@
-/* ===== 1. CSS ±äÁ¿ ===== */
+/* ===== 1. CSS å˜é‡ ===== */
 :root {
   --bg: #fdf6ec;
   --card-bg: #fff;
@@ -9,7 +9,7 @@
   --font: "Comic Neue", cursive;
 }
 
-/* ===== 2. È«¾ÖÑùÊ½ ===== */
+/* ===== 2. å…¨å±€æ ·å¼ ===== */
 * {
   margin: 0;
   padding: 0;
@@ -41,7 +41,7 @@ h1 {
   opacity: .7;
 }
 
-/* ===== 3. ¿¨Æ¬Íø¸ñ ===== */
+/* ===== 3. å¡ç‰‡ç½‘æ ¼ ===== */
 .card-grid {
   display: grid;
   gap: 32px;
@@ -71,12 +71,12 @@ h1 {
   opacity: .8;
 }
 
-/* ===== 4. ²å»­ & °´Å¥ ===== */
+/* ===== 4. æ’ç”» & æŒ‰é’® ===== */
 .svg-illu {
   width: 100%;
   height: 120px;
   object-fit: contain;
-  color: var(--card-bg); /* ÈÃSVGÌî³äÉ«¸úËæ¿¨Æ¬±³¾° */
+  color: var(--card-bg); /* è®©SVGå¡«å……è‰²è·Ÿéšå¡ç‰‡èƒŒæ™¯ */
 }
 .btn {
   display: inline-block;
@@ -92,7 +92,7 @@ h1 {
   background: #ff5252;
 }
 
-/* ===== 5. GitHub Á´½Ó ===== */
+/* ===== 5. GitHub é“¾æ¥ ===== */
 .github-link {
   display: inline-flex;
   align-items: center;
@@ -104,14 +104,14 @@ h1 {
   color: var(--accent);
 }
 
-/* ===== 6. Ò¹¼äÄ£Ê½ ===== */
+/* ===== 6. å¤œé—´æ¨¡å¼ ===== */
 body.dark {
   --bg: #1e1e1e;
   --card-bg: #2c2c2c;
   --text: #f0f0f0;
 }
 
-/* ===== 7. Ò¹¼äÄ£Ê½°´Å¥ ===== */
+/* ===== 7. å¤œé—´æ¨¡å¼æŒ‰é’® ===== */
 .theme-btn {
   position: absolute;
   top: 20px;
@@ -126,19 +126,19 @@ body.dark {
   transform: scale(1.2);
 }
 
-/* ===== 8. ÏìÓ¦Ê½ ===== */
+/* ===== 8. å“åº”å¼ ===== */
 @media (max-width: 600px) {
   h1 { font-size: 2.4rem; }
 }
 
 
 
-/* °´Å¥ÑùÊ½ */
+/* æŒ‰é’®æ ·å¼ */
 .btn {
   display: inline-block;
   margin-top: 12px;
   padding: 6px 14px;
-  background: var(--card-bg); /* Ê¹ÓÃ±äÁ¿ */
+  background: var(--card-bg); /* ä½¿ç”¨å˜é‡ */
   color: var(--text);
   border-radius: var(--radius);
   font-size: 14px;
@@ -151,9 +151,9 @@ body.dark {
   color: #fff;
 }
 
-/* Ò¹¼äÄ£Ê½ÏÂ°´Å¥ÑùÊ½ */
+/* å¤œé—´æ¨¡å¼ä¸‹æŒ‰é’®æ ·å¼ */
 body.dark .btn {
-  background: var(--card-bg); /* Ò¹¼äÄ£Ê½ÏÂ°´Å¥±³¾° */
+  background: var(--card-bg); /* å¤œé—´æ¨¡å¼ä¸‹æŒ‰é’®èƒŒæ™¯ */
   color: var(--text);
 }
 
@@ -163,45 +163,45 @@ body.dark .btn:hover {
 }
 
 
-/* ===== 9. ÒÆ¶¯¶ËÓÅ»¯ ===== */
+/* ===== 9. ç§»åŠ¨ç«¯ä¼˜åŒ– ===== */
 @media (max-width: 600px) {
   body {
-    padding: 20px 15px; /* Ôö¼Ó°²È«±ß¾à */
+    padding: 20px 15px; /* å¢åŠ å®‰å…¨è¾¹è· */
   }
   
   .card {
-    padding: 25px 15px; /* ¿¨Æ¬ÄÚ±ß¾àÓÅ»¯ */
+    padding: 25px 15px; /* å¡ç‰‡å†…è¾¹è·ä¼˜åŒ– */
   }
   
-  /* ĞŞ¸´Í¼Æ¬Òç³öÎÊÌâ */
+  /* ä¿®å¤å›¾ç‰‡æº¢å‡ºé—®é¢˜ */
   .svg-illu {
     max-width: 100%;
     height: auto;
   }
   
-  /* ĞŞ¸´°´Å¥µã»÷ÇøÓò */
+  /* ä¿®å¤æŒ‰é’®ç‚¹å‡»åŒºåŸŸ */
   .btn {
     padding: 8px 16px;
-    display: block; /* ÈÃ°´Å¥¶ÀÕ¼Ò»ĞĞ */
-    margin: 15px auto 0; /* ¾ÓÖĞÏÔÊ¾ */
+    display: block; /* è®©æŒ‰é’®ç‹¬å ä¸€è¡Œ */
+    margin: 15px auto 0; /* å±…ä¸­æ˜¾ç¤º */
   }
 }
 
 
-/* ===== 10. Ñ§Êõ·ç±êÌâ ===== */
+/* ===== 10. å­¦æœ¯é£æ ‡é¢˜ ===== */
 .site-title {
   font-family: 'Georgia', serif;
   display: inline-block;
   
   text-shadow: 0 2px 3px rgba(0,0,0,0.1);
-  background: linear-gradient(to right, var(--bg), var(--card-bg)); /* Ê¹ÓÃ±³¾°±äÁ¿ */
+  background: linear-gradient(to right, var(--bg), var(--card-bg)); /* ä½¿ç”¨èƒŒæ™¯å˜é‡ */
   padding: 12px 20px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  color: var(--text); /* Ê¹ÓÃÎÄ×ÖÑÕÉ«±äÁ¿ */
+  color: var(--text); /* ä½¿ç”¨æ–‡å­—é¢œè‰²å˜é‡ */
 }
 
-/* ¸±±êÌâÓÅ»¯ */
+/* å‰¯æ ‡é¢˜ä¼˜åŒ– */
 .subtitle {
   margin-top: 15px;
   font-size: 1.2rem;
@@ -209,20 +209,20 @@ body.dark .btn:hover {
   opacity: 0.8;
 }
 
-/* === ĞŞ¸´Ò¹¼äÄ£Ê½±êÌâ === */
+/* === ä¿®å¤å¤œé—´æ¨¡å¼æ ‡é¢˜ === */
 body.dark .site-title {
   background: linear-gradient(to right, #2c2c2c, #1e1e1e);
   border-left-color: #ff7a7a;
   color: #f0f0f0;
 }
 
-/* ÎÄÕÂÁĞ±íÑùÊ½ */
+/* æ–‡ç« åˆ—è¡¨æ ·å¼ */
 .post-img {
   width: 100%;
   height: 160px;
   object-fit: cover;
   border-radius: 12px;
-  border: 2px dashed #ff9e9e; /* ÊÖ»æ·ç¸ñÍ¼Æ¬±ß¿ò */
+  border: 2px dashed #ff9e9e; /* æ‰‹ç»˜é£æ ¼å›¾ç‰‡è¾¹æ¡† */
 }
 
 .post-date {
@@ -231,7 +231,7 @@ body.dark .site-title {
   margin: 8px 0;
 }
 
-/* ÎÄÕÂÏêÇéÒ³ÑùÊ½ */
+/* æ–‡ç« è¯¦æƒ…é¡µæ ·å¼ */
 .post-content {
   max-width: 800px;
   margin: 0 auto;
@@ -269,17 +269,17 @@ pre {
 
 
 .sidebar-card {
-  position: fixed; /* ¹Ì¶¨ÔÚÒ³ÃæÓÒ²à */
+  position: fixed; /* å›ºå®šåœ¨é¡µé¢å³ä¾§ */
   right: 20px;
   top: 50%;
-  transform: translateY(-50%); /* ´¹Ö±¾ÓÖĞ */
+  transform: translateY(-50%); /* å‚ç›´å±…ä¸­ */
   background: var(--card-bg);
   padding: 20px;
   border-radius: 12px;
   box-shadow: var(--shadow);
-  border: 2px dashed #ff9e9e; /* ±£³ÖÊÖ»æ·ç¸ñ */
+  border: 2px dashed #ff9e9e; /* ä¿æŒæ‰‹ç»˜é£æ ¼ */
   width: 250px;
-  z-index: 10; /* È·±£ÔÚÆäËûÄÚÈİÉÏ·½ */
+  z-index: 10; /* ç¡®ä¿åœ¨å…¶ä»–å†…å®¹ä¸Šæ–¹ */
 }
 
 #time-display {
@@ -296,45 +296,45 @@ body {
   padding: 40px 0;
   min-height: 100vh;
   background-color: var(--bg);
-  background-image: url('https://source.unsplash.com/random/1920x1080/?nature,light'); /* ³õÊ¼±³¾°Í¼ */
-  background-size: cover; /* Í¼Æ¬ÆÌÂúÆÁÄ» */
-  background-attachment: fixed; /* ±³¾°¹Ì¶¨£¬²»Ëæ¹ö¶¯ÒÆ¶¯ */
+  background-image: url('https://source.unsplash.com/random/1920x1080/?nature,light'); /* åˆå§‹èƒŒæ™¯å›¾ */
+  background-size: cover; /* å›¾ç‰‡é“ºæ»¡å±å¹• */
+  background-attachment: fixed; /* èƒŒæ™¯å›ºå®šï¼Œä¸éšæ»šåŠ¨ç§»åŠ¨ */
   background-position: center;
   color: var(--text);
   font-family: 'Nunito', sans-serif;
 }
 
 
-/* ÓïÂ¼ÇĞ»»¶¯»­ */
+/* è¯­å½•åˆ‡æ¢åŠ¨ç”» */
 #hitokoto, #hitokoto-from {
-  transition: opacity 0.5s ease-in-out; /* µ­Èëµ­³öĞ§¹û£¬0.5ÃëÍê³É */
+  transition: opacity 0.5s ease-in-out; /* æ·¡å…¥æ·¡å‡ºæ•ˆæœï¼Œ0.5ç§’å®Œæˆ */
 }
-/* ÇĞ»»Ê±µÄ¹ı¶É×´Ì¬ */
+/* åˆ‡æ¢æ—¶çš„è¿‡æ¸¡çŠ¶æ€ */
 .hitokoto-fade {
-  opacity: 0; /* ÍêÈ«Í¸Ã÷ */
+  opacity: 0; /* å®Œå…¨é€æ˜ */
 }
 
 
 
-/* Í³Ò»Í¼±êÑÕÉ«ÊÊÅäÒ¹¼äÄ£Ê½ */
-/* GitHubÍ¼±ê */
+/* ç»Ÿä¸€å›¾æ ‡é¢œè‰²é€‚é…å¤œé—´æ¨¡å¼ */
+/* GitHubå›¾æ ‡ */
 .github-link svg {
-  fill: var(--text); /* ¸úËæÎÄ±¾ÑÕÉ« */
+  fill: var(--text); /* è·Ÿéšæ–‡æœ¬é¢œè‰² */
   transition: fill 0.3s ease;
 }
 
-/* Ò¹¼äÄ£Ê½ÏÂµÄGitHubÍ¼±ê */
+/* å¤œé—´æ¨¡å¼ä¸‹çš„GitHubå›¾æ ‡ */
 body.dark .github-link svg {
-  fill: var(--text); /* Ò¹¼äÄ£Ê½ÎÄ±¾ÎªÇ³É«£¬Í¼±êÍ¬²½ */
+  fill: var(--text); /* å¤œé—´æ¨¡å¼æ–‡æœ¬ä¸ºæµ…è‰²ï¼Œå›¾æ ‡åŒæ­¥ */
 }
 
-/* Ò¹¼äÄ£Ê½ÇĞ»»°´Å¥Í¼±ê£¨ÎÄ×ÖĞÎÊ½£©*/
+/* å¤œé—´æ¨¡å¼åˆ‡æ¢æŒ‰é’®å›¾æ ‡ï¼ˆæ–‡å­—å½¢å¼ï¼‰*/
 .theme-btn {
-  color: var(--text); /* °´Å¥ÎÄ×ÖÑÕÉ«¸úËæÎÄ±¾ */
+  color: var(--text); /* æŒ‰é’®æ–‡å­—é¢œè‰²è·Ÿéšæ–‡æœ¬ */
   transition: color 0.3s ease;
 }
 
-/* È·±£°´Å¥ÔÚÒ¹¼äÄ£Ê½ÏÂÑÕÉ«ÕıÈ· */
+/* ç¡®ä¿æŒ‰é’®åœ¨å¤œé—´æ¨¡å¼ä¸‹é¢œè‰²æ­£ç¡® */
 body.dark .theme-btn {
   color: var(--text);
 }

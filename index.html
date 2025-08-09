@@ -91,6 +91,40 @@
       color: var(--text);
     }
 
+    /* 加载动画 */
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transition: opacity 0.5s ease;
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loader-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
     /* 英雄区域 */
     .hero {
       min-height: 100vh;
@@ -98,26 +132,12 @@
       align-items: center;
       justify-content: center;
       padding: 100px 0;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      background-size: 200% 200%;
-      animation: gradientShift 15s ease infinite;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), 
+                  url('https://source.unsplash.com/random/1920x1080/?nature,art') center/cover no-repeat;
+      background-size: cover;
+      transition: background-image 1s ease-in-out;
       position: relative;
       overflow: hidden;
-    }
-
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-      opacity: 0.3;
     }
 
     .hero-content {
@@ -143,6 +163,7 @@
       margin-bottom: 20px;
       line-height: 1.2;
       position: relative;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .hero h1::after {
@@ -159,6 +180,7 @@
       font-size: 1.25rem;
       margin-bottom: 30px;
       opacity: 0.9;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     }
 
     .scroll-indicator {
@@ -249,10 +271,24 @@
     .card:nth-child(1) { animation-delay: 0.3s; }
     .card:nth-child(2) { animation-delay: 0.5s; }
     .card:nth-child(3) { animation-delay: 0.7s; }
+    .card:nth-child(4) { animation-delay: 0.9s; }
 
     .card:hover {
       transform: translateY(-10px);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+
+    .card:hover .card-img {
+      transform: scale(1.05);
     }
 
     .card-icon {
@@ -354,6 +390,10 @@
       .section-title {
         font-size: 1.75rem;
       }
+
+      .card-img {
+        height: 150px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -364,10 +404,19 @@
       .card {
         padding: 25px 20px;
       }
+
+      .card-img {
+        height: 130px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- 加载动画 -->
+  <div class="loader">
+    <div class="loader-spinner"></div>
+  </div>
+
   <!-- 导航栏 -->
   <nav class="navbar">
     <div class="container nav-container">
@@ -398,6 +447,7 @@
       <h2 class="section-title">探索内容</h2>
       <div class="cards">
         <div class="card">
+          <img src="https://source.unsplash.com/random/600x400/?blog" alt="博客" class="card-img">
           <div class="card-icon">
             <i class="fas fa-blog"></i>
           </div>
@@ -407,6 +457,7 @@
         </div>
         
         <div class="card">
+          <img src="https://source.unsplash.com/random/600x400/?gallery" alt="创意作品" class="card-img">
           <div class="card-icon">
             <i class="fas fa-paint-brush"></i>
           </div>
@@ -416,6 +467,17 @@
         </div>
         
         <div class="card">
+          <img src="https://source.unsplash.com/random/600x400/?diary" alt="生活日记" class="card-img">
+          <div class="card-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <h2>生活日记</h2>
+          <p>记录日常点滴和灵感瞬间，分享生活中的小确幸与思考。</p>
+          <a href="#" class="btn">阅读日记</a>
+        </div>
+        
+        <div class="card">
+          <img src="https://source.unsplash.com/random/600x400/?message" alt="留言互动" class="card-img">
           <div class="card-icon">
             <i class="fas fa-comments"></i>
           </div>
@@ -447,6 +509,29 @@
   </section>
 
   <script>
+    // 图片API配置 - 可以自定义关键词
+    const imageKeywords = ['nature', 'art', 'illustration', 'hand-drawn', 'creative', 'vintage'];
+    
+    // 随机获取关键词
+    function getRandomKeyword() {
+      return imageKeywords[Math.floor(Math.random() * imageKeywords.length)];
+    }
+    
+    // 切换背景图片
+    function changeBackground() {
+      const hero = document.querySelector('.hero');
+      const keyword = getRandomKeyword();
+      // 使用Unsplash的免费图片API
+      const imageUrl = `https://source.unsplash.com/random/1920x1080/?${keyword}`;
+      
+      // 预加载图片
+      const img = new Image();
+      img.src = imageUrl;
+      img.onload = function() {
+        hero.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('${imageUrl}')`;
+      }
+    }
+
     // 导航栏滚动效果
     window.addEventListener('scroll', function() {
       const navbar = document.querySelector('.navbar');
@@ -459,7 +544,6 @@
 
     // 主题切换功能
     const themeToggle = document.getElementById('theme-toggle');
-    const html = document.documentElement;
     
     themeToggle.addEventListener('click', function() {
       const icon = themeToggle.querySelector('i');
@@ -488,6 +572,20 @@
           behavior: 'smooth'
         });
       });
+    });
+
+    // 页面加载完成后执行
+    window.addEventListener('load', function() {
+      // 隐藏加载动画
+      setTimeout(() => {
+        document.querySelector('.loader').classList.add('hidden');
+      }, 800);
+      
+      // 初始加载背景图
+      changeBackground();
+      
+      // 每30秒自动切换背景图
+      setInterval(changeBackground, 30000);
     });
   </script>
 </body>
