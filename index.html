@@ -5,107 +5,490 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TangShiMei 的秘密基地</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {
+    :root {
+      --primary: #667eea;
+      --primary-dark: #564ba2;
+      --secondary: #ff7a7a;
+      --light-bg: #f0f2f5;
+      --card-bg: #fff;
+      --text: #333;
+      --text-light: #666;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Arial', sans-serif;
-      background-color: #f0f2f5;
-      color: #333;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Arial', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 0 20px;
     }
 
-    .hero {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    /* 导航栏 */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 18px 0;
+      background: transparent;
+      z-index: 100;
+      transition: var(--transition);
+    }
+
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      padding: 12px 0;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
       color: white;
-      text-align: center;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .navbar.scrolled .logo {
+      color: var(--primary);
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .navbar.scrolled .theme-toggle {
+      color: var(--text);
+    }
+
+    /* 英雄区域 */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 100px 0;
-      border-radius: 10px;
-      margin-bottom: 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-size: 200% 200%;
+      animation: gradientShift 15s ease infinite;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.3;
+    }
+
+    .hero-content {
+      text-align: center;
+      color: white;
+      z-index: 1;
+      padding: 20px;
+      max-width: 800px;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeUp 1s forwards 0.3s;
+    }
+
+    @keyframes fadeUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     .hero h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      position: relative;
+    }
+
+    .hero h1::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: var(--secondary);
+      margin: 20px auto 0;
+      border-radius: 3px;
     }
 
     .hero p {
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin: 0 auto;
+      font-size: 1.25rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+      40% { transform: translateY(-20px) translateX(-50%); }
+      60% { transform: translateY(-10px) translateX(-50%); }
+    }
+
+    /* 卡片区域 */
+    .cards-section {
+      padding: 100px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+      font-size: 2rem;
+      color: var(--text);
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      animation: fadeIn 1s forwards 0.5s;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: var(--primary);
+      margin: 15px auto 0;
+      border-radius: 3px;
     }
 
     .cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      gap: 30px;
     }
 
     .card {
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: var(--shadow);
       text-align: center;
-      transition: transform 0.3s ease;
+      transition: var(--transition);
+      transform: translateY(30px);
+      opacity: 0;
+      animation: fadeUp 0.6s forwards;
+      position: relative;
+      overflow: hidden;
     }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transform: scaleX(0);
+      transition: var(--transition);
+    }
+
+    .card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .card:nth-child(1) { animation-delay: 0.3s; }
+    .card:nth-child(2) { animation-delay: 0.5s; }
+    .card:nth-child(3) { animation-delay: 0.7s; }
 
     .card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
     }
 
-    .card img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 15px;
+    .card-icon {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+
+    .card:hover .card-icon {
+      transform: scale(1.1) rotate(5deg);
+      color: var(--secondary);
     }
 
     .card h2 {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+      color: var(--text);
     }
 
     .card p {
-      margin-bottom: 15px;
-      color: #666;
+      margin-bottom: 25px;
+      color: var(--text-light);
+      line-height: 1.7;
     }
 
     .btn {
       display: inline-block;
-      background-color: #667eea;
+      background-color: var(--primary);
       color: white;
-      padding: 8px 16px;
-      border-radius: 4px;
+      padding: 10px 24px;
+      border-radius: 30px;
       text-decoration: none;
-      transition: background-color 0.3s ease;
+      transition: var(--transition);
+      font-weight: 500;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
     }
 
     .btn:hover {
-      background-color: #564ba2;
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    /* 社交链接 */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 40px;
+      padding-bottom: 60px;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      transform: translateY(-5px) rotate(10deg);
+      background: var(--primary);
+      color: white;
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .card {
+        padding: 25px 20px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <section class="hero">
-      <h1>欢迎来到TangShiMei 的秘密基地</h1>
-      <p>这里是我的个人空间，分享我的创作与思考。</p>
-    </section>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <i class="fas fa-star"></i> TangShiMei
+      </a>
+      <button class="theme-toggle" id="theme-toggle" title="切换主题">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </nav>
 
-    <section class="cards">
-      <div class="card">
-        <img src="https://source.unsplash.com/random/600x400/?blog" alt="博客">
-        <h2>我的博客</h2>
-        <p>记录我的创作与思考，分享我的学习与成长。</p>
-        <a href="old-index.html" class="btn">访问博客</a>
+  <!-- 英雄区域 -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>欢迎来到 TangShiMei 的秘密基地</h1>
+      <p>这里是我的个人空间，分享我的创作与思考，记录生活中的美好瞬间。</p>
+      <a href="#cards" class="btn">开始探索</a>
+    </div>
+    <div class="scroll-indicator">
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- 卡片区域 -->
+  <section id="cards" class="cards-section">
+    <div class="container">
+      <h2 class="section-title">探索内容</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-blog"></i>
+          </div>
+          <h2>我的博客</h2>
+          <p>记录我的创作与思考，分享前端开发技巧、手绘灵感和日常随笔。</p>
+          <a href="old-index.html" class="btn">访问博客</a>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-paint-brush"></i>
+          </div>
+          <h2>创意作品</h2>
+          <p>展示我的手绘作品、像素风格插画和其他创意设计，用视觉讲述故事。</p>
+          <a href="#" class="btn">查看作品</a>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-comments"></i>
+          </div>
+          <h2>留言互动</h2>
+          <p>写下你的想法或建议，我们可以一起交流学习，共同成长。</p>
+          <a href="guestbook.html" class="btn">去留言</a>
+        </div>
       </div>
-    </section>
-  </div>
+
+      <!-- 社交链接 -->
+      <div class="social-links">
+        <a href="https://github.com/Tang-is-harding" target="_blank" title="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://res.abeim.cn/api/qq/?qq=2244182951" target="_blank" title="QQ">
+          <i class="fab fa-qq"></i>
+        </a>
+        <a href="#" target="_blank" title="微信">
+          <i class="fab fa-weixin"></i>
+        </a>
+        <a href="mailto:yangqinhao1101@163.com" title="邮箱">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <a href="https://space.bilibili.com/675768777" target="_blank" title="Bilibili">
+          <i class="fab fa-bilibili"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // 导航栏滚动效果
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // 主题切换功能
+    const themeToggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    
+    themeToggle.addEventListener('click', function() {
+      const icon = themeToggle.querySelector('i');
+      if (icon.classList.contains('fa-moon')) {
+        icon.classList.replace('fa-moon', 'fa-sun');
+        document.body.style.setProperty('--light-bg', '#1a1a2e');
+        document.body.style.setProperty('--card-bg', '#16213e');
+        document.body.style.setProperty('--text', '#e94560');
+        document.body.style.setProperty('--text-light', '#f0f0f0');
+        document.body.style.setProperty('--shadow', '0 10px 30px rgba(0, 0, 0, 0.3)');
+      } else {
+        icon.classList.replace('fa-sun', 'fa-moon');
+        document.body.style.setProperty('--light-bg', '#f0f2f5');
+        document.body.style.setProperty('--card-bg', '#fff');
+        document.body.style.setProperty('--text', '#333');
+        document.body.style.setProperty('--text-light', '#666');
+        document.body.style.setProperty('--shadow', '0 10px 30px rgba(0, 0, 0, 0.08)');
+      }
+    });
+
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
 </body>
 </html>
