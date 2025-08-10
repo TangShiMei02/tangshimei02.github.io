@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  :root {
+    --color-bg: 253 246 236;
+    --color-card: 255 255 255;
+  }
+  .dark {
+    --color-bg: 26 26 46;
+    --color-card: 22 33 62;
+  }
+}
