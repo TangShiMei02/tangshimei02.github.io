@@ -24,7 +24,6 @@
       --font-display: 'Comic Neue', cursive;
     }
 
-    /* 夜间模式变量 - 统一使用dark类控制 */
     body.dark {
       --bg: #1a1a2e;
       --card-bg: #16213e;
@@ -46,7 +45,7 @@
       line-height: 1.6;
       overflow-x: hidden;
       transition: background-color 0.3s, color 0.3s;
-      padding: 0; /* 移除重复的padding定义 */
+      padding: 0;
     }
 
     .container {
@@ -55,7 +54,6 @@
       padding: 0 20px;
     }
 
-    /* 导航栏 */
     .navbar {
       position: fixed;
       top: 0;
@@ -116,7 +114,6 @@
       color: var(--text);
     }
 
-    /* 加载动画 */
     .loader {
       position: fixed;
       top: 0;
@@ -154,7 +151,6 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* 英雄区域 */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -228,7 +224,6 @@
       60% { transform: translateY(-10px) translateX(-50%); }
     }
 
-    /* 卡片区域 */
     .cards-section {
       padding: 100px 0;
     }
@@ -353,7 +348,6 @@
       line-height: 1.7;
     }
 
-    /* 统一按钮样式 */
     .btn {
       display: inline-block;
       background-color: var(--primary);
@@ -399,7 +393,6 @@
       color: white;
     }
 
-    /* 社交链接 */
     .social-links {
       display: flex;
       justify-content: center;
@@ -437,7 +430,6 @@
       color: white;
     }
 
-    /* 响应式设计 - 统一断点 */
     @media (max-width: 768px) {
       .hero h1 {
         font-size: 2.5rem;
@@ -482,12 +474,10 @@
   </style>
 </head>
 <body>
-  <!-- 加载动画 -->
   <div class="loader">
     <div class="loader-spinner"></div>
   </div>
 
-  <!-- 导航栏 -->
   <nav class="navbar">
     <div class="container nav-container">
       <a href="#" class="logo">
@@ -499,7 +489,6 @@
     </div>
   </nav>
 
-  <!-- 英雄区域 -->
   <section class="hero">
     <div class="hero-content">
       <h1>欢迎来到 TangShiMei 的秘密基地</h1>
@@ -511,7 +500,6 @@
     </div>
   </section>
 
-  <!-- 卡片区域 -->
   <section id="cards" class="cards-section">
     <div class="container">
       <h2 class="section-title">探索内容</h2>
@@ -525,7 +513,7 @@
           <p>记录我的创作与思考，分享前端开发技巧、手绘灵感和日常随笔。</p>
           <a href="old-index.html" class="btn">访问博客</a>
         </div>
-        
+
         <div class="card">
           <img src="https://source.unsplash.com/random/600x400/?gallery" alt="创意作品" class="card-img">
           <div class="card-icon">
@@ -535,9 +523,9 @@
           <p>展示我的手绘作品、像素风格插画和其他创意设计，用视觉讲述故事。</p>
           <a href="#" class="btn">查看作品</a>
         </div>
-        
+
         <div class="card">
-          <img src="http://www.wudada.online/Api/ScTp" alt="生活日记" class="card-img">
+          <img id="diary-img" alt="生活日记" class="card-img">
           <div class="card-icon">
             <i class="fas fa-book"></i>
           </div>
@@ -545,7 +533,7 @@
           <p>记录日常点滴和灵感瞬间，分享生活中的小确幸与思考。</p>
           <a href="#" class="btn">阅读日记</a>
         </div>
-        
+
         <div class="card">
           <img src="https://source.unsplash.com/random/600x400/?message" alt="留言互动" class="card-img">
           <div class="card-icon">
@@ -557,7 +545,6 @@
         </div>
       </div>
 
-      <!-- 社交链接 -->
       <div class="social-links">
         <a href="https://github.com/Tang-is-harding" target="_blank" title="GitHub">
           <i class="fab fa-github"></i>
@@ -579,22 +566,16 @@
   </section>
 
   <script>
-    // 图片API配置 - 可以自定义关键词
     const imageKeywords = ['nature', 'art', 'illustration', 'hand-drawn', 'creative', 'vintage'];
-    
-    // 随机获取关键词
+
     function getRandomKeyword() {
       return imageKeywords[Math.floor(Math.random() * imageKeywords.length)];
     }
-    
-    // 切换背景图片
+
     function changeBackground() {
       const hero = document.querySelector('.hero');
       const keyword = getRandomKeyword();
-      // 使用Unsplash的免费图片API
       const imageUrl = `https://source.unsplash.com/random/1920x1080/?${keyword}`;
-      
-      // 预加载图片
       const img = new Image();
       img.src = imageUrl;
       img.onload = function() {
@@ -602,7 +583,6 @@
       }
     }
 
-    // 导航栏滚动效果
     window.addEventListener('scroll', function() {
       const navbar = document.querySelector('.navbar');
       if (window.scrollY > 50) {
@@ -612,20 +592,16 @@
       }
     });
 
-    // 主题切换功能 - 统一使用dark类控制
     const themeToggle = document.getElementById('theme-toggle');
-    
-    // 初始化主题状态
     if (localStorage.getItem('theme') === 'dark' || 
         (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       document.body.classList.add('dark');
       themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
     }
-    
+
     themeToggle.addEventListener('click', function() {
       const icon = themeToggle.querySelector('i');
       document.body.classList.toggle('dark');
-      
       if (document.body.classList.contains('dark')) {
         icon.classList.replace('fa-moon', 'fa-sun');
         localStorage.setItem('theme', 'dark');
@@ -635,7 +611,6 @@
       }
     });
 
-    // 平滑滚动
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -645,17 +620,24 @@
       });
     });
 
-    // 页面加载完成后执行
+    // 加载日记图片
+    async function loadDiaryImage() {
+      try {
+        const res = await fetch('http://www.wudada.online/Api/ScTp');
+        const data = await res.json();
+        document.getElementById('diary-img').src = data.data;
+      } catch (error) {
+        console.error('日记图片加载失败', error);
+        document.getElementById('diary-img').src = 'https://source.unsplash.com/random/600x400/?daily';
+      }
+    }
+
     window.addEventListener('load', function() {
-      // 隐藏加载动画
       setTimeout(() => {
         document.querySelector('.loader').classList.add('hidden');
       }, 800);
-      
-      // 初始加载背景图
       changeBackground();
-      
-      // 每30秒自动切换背景图
+      loadDiaryImage();
       setInterval(changeBackground, 30000);
     });
   </script>
