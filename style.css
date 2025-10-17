@@ -338,3 +338,23 @@ body.dark .github-link svg {
 body.dark .theme-btn {
   color: var(--text);
 }
+
+
+
+/* 添加到CSS中 */
+@media (max-width: 768px) {
+  .buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  button {
+    width: 80%;
+    margin: 5px 0;
+  }
+  
+  h1 {
+    font-size: 18px;
+    padding: 0 10px;
+  }
+}
