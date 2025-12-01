@@ -1,360 +1,112 @@
-/* ===== 1. CSS 变量 ===== */
+/* ===== 变量 ===== */
 :root {
-  --bg: #fdf6ec;
+  --bg: #fdf9f5;
   --card-bg: #fff;
   --text: #333;
   --accent: #ff7a7a;
-  --radius: 24px;
-  --shadow: 4px 8px 20px rgba(0,0,0,.08);
-  --font: "Comic Neue", cursive;
+  --radius: 18px;
+  --shadow: 0 4px 16px rgba(0,0,0,0.06);
+  --font-body: 'Nunito', sans-serif;
+  --font-title: 'Georgia', serif;
 }
 
-/* ===== 2. 全局样式 ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font);
-  text-align: center;
-  line-height: 1.6;
-  padding: 40px 20px;
-  transition: background .3s, color .3s;
-}
-
-header {
-  position: relative;
-  margin-bottom: 60px;
-}
-
-h1 {
-  font-size: 3rem;
-  color: var(--accent);
-}
-
-.subtitle {
-  font-size: 1.1rem;
-  opacity: .7;
-}
-
-/* ===== 3. 卡片网格 ===== */
-.card-grid {
-  display: grid;
-  gap: 32px;
-  max-width: 960px;
-  margin: 0 auto;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-}
-
-.card {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  border-radius: 16px;
-  border: 3px dashed #ff9e9e;
-  padding: 32px 24px;
-  box-shadow: var(--shadow);
-  transition: transform .3s ease;
-}
-.card:hover {
-  transform: translateY(-6px);
-}
-.card h2 {
-  margin: 12px 0 8px;
-  font-size: 1.5rem;
-}
-.card p {
-  font-size: 1rem;
-  opacity: .8;
-}
-
-/* ===== 4. 插画 & 按钮 ===== */
-.svg-illu {
-  width: 100%;
-  height: 120px;
-  object-fit: contain;
-  color: var(--card-bg); /* 让SVG填充色跟随卡片背景 */
-}
-.btn {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 6px 14px;
-  background: var(--accent);
-  color: #fff;
-  border-radius: 16px;
-  font-size: 14px;
-  text-decoration: none;
-}
-.btn:hover {
-  background: #ff5252;
-}
-
-/* ===== 5. GitHub 链接 ===== */
-.github-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--text);
-  text-decoration: none;
-}
-.github-link:hover {
-  color: var(--accent);
-}
-
-/* ===== 6. 夜间模式 ===== */
 body.dark {
-  --bg: #1e1e1e;
-  --card-bg: #2c2c2c;
+  --bg: #1a1a1a;
+  --card-bg: #252525;
   --text: #f0f0f0;
 }
 
-/* ===== 7. 夜间模式按钮 ===== */
+/* ===== 全局 ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background-color: var(--bg);
+  background-image: url('https://source.unsplash.com/random/1920x1080/?nature,light');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+/* ===== Typography ===== */
+.site-title {
+  font-family: var(--font-title);
+  font-size: 2.8rem;
+  margin-bottom: 8px;
+}
+.subtitle {
+  font-size: 1.1rem;
+  opacity: 0.7;
+  margin-bottom: 24px;
+}
+#hitokoto, #hitokoto-from {
+  transition: opacity 0.5s ease;
+  max-width: 600px;
+  margin: 0 auto 16px;
+}
+.hitokoto-fade { opacity: 0; }
+
+/* ===== Cards ===== */
+.card-grid {
+  display: grid;
+  gap: 28px;
+  max-width: 900px;
+  margin: 40px auto;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.card {
+  display: block;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 28px;
+  text-align: left;
+  text-decoration: none;
+  color: var(--text);
+  box-shadow: var(--shadow);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+.card h2 {
+  color: var(--accent);
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+}
+.card p {
+  opacity: 0.85;
+  font-size: 0.95rem;
+}
+
+/* ===== UI Components ===== */
 .theme-btn {
   position: absolute;
   top: 20px;
   right: 20px;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   cursor: pointer;
-  transition: transform .3s;
-}
-.theme-btn:hover {
-  transform: scale(1.2);
-}
-
-/* ===== 8. 响应式 ===== */
-@media (max-width: 600px) {
-  h1 { font-size: 2.4rem; }
-}
-
-
-
-/* 按钮样式 */
-.btn {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 6px 14px;
-  background: var(--card-bg); /* 使用变量 */
   color: var(--text);
-  border-radius: var(--radius);
-  font-size: 14px;
+}
+.github-link {
+  color: var(--text);
   text-decoration: none;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.btn:hover {
-  background: var(--accent);
-  color: #fff;
-}
-
-/* 夜间模式下按钮样式 */
-body.dark .btn {
-  background: var(--card-bg); /* 夜间模式下按钮背景 */
-  color: var(--text);
-}
-
-body.dark .btn:hover {
-  background: var(--accent);
-  color: #fff;
-}
-
-
-/* ===== 9. 移动端优化 ===== */
-@media (max-width: 600px) {
-  body {
-    padding: 20px 15px; /* 增加安全边距 */
-  }
-  
-  .card {
-    padding: 25px 15px; /* 卡片内边距优化 */
-  }
-  
-  /* 修复图片溢出问题 */
-  .svg-illu {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  /* 修复按钮点击区域 */
-  .btn {
-    padding: 8px 16px;
-    display: block; /* 让按钮独占一行 */
-    margin: 15px auto 0; /* 居中显示 */
-  }
-}
-
-
-/* ===== 10. 学术风标题 ===== */
-.site-title {
-  font-family: 'Georgia', serif;
-  display: inline-block;
-  
-  text-shadow: 0 2px 3px rgba(0,0,0,0.1);
-  background: linear-gradient(to right, var(--bg), var(--card-bg)); /* 使用背景变量 */
-  padding: 12px 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  color: var(--text); /* 使用文字颜色变量 */
-}
-
-/* 副标题优化 */
-.subtitle {
-  margin-top: 15px;
-  font-size: 1.2rem;
-  letter-spacing: 1px;
   opacity: 0.8;
 }
-
-/* === 修复夜间模式标题 === */
-body.dark .site-title {
-  background: linear-gradient(to right, #2c2c2c, #1e1e1e);
-  border-left-color: #ff7a7a;
-  color: #f0f0f0;
-}
-
-/* 文章列表样式 */
-.post-img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 12px;
-  border: 2px dashed #ff9e9e; /* 手绘风格图片边框 */
-}
-
-.post-date {
-  font-size: 0.9rem;
-  color: #888;
-  margin: 8px 0;
-}
-
-/* 文章详情页样式 */
-.post-content {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: left;
-  padding: 0 20px;
-}
-
-.post-banner {
-  width: 100%;
-  max-height: 400px;
-  object-fit: cover;
-  border-radius: 16px;
-  margin-bottom: 20px;
-  border: 3px dashed #ff9e9e;
-}
-
-.post-content h2 {
-  color: var(--accent);
-  margin: 30px 0 15px;
-}
-
-.post-content p {
-  margin: 15px 0;
-  line-height: 1.8;
-}
-
-pre {
-  background: var(--card-bg);
-  padding: 15px;
-  border-radius: 8px;
-  border-left: 4px solid var(--accent);
-  overflow-x: auto;
-  margin: 20px 0;
-}
-
-
-.sidebar-card {
-  position: fixed; /* 固定在页面右侧 */
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%); /* 垂直居中 */
-  background: var(--card-bg);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  border: 2px dashed #ff9e9e; /* 保持手绘风格 */
-  width: 250px;
-  z-index: 10; /* 确保在其他内容上方 */
-}
-
-#time-display {
-  font-size: 1.5rem;
+footer {
   text-align: center;
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  border-bottom: 1px dashed #ff9e9e;
+  margin-top: 60px;
+  opacity: 0.7;
+  font-size: 0.9rem;
 }
 
-
-body {
-  margin: 0;
-  padding: 40px 0;
-  min-height: 100vh;
-  background-color: var(--bg);
-  background-image: url('https://source.unsplash.com/random/1920x1080/?nature,light'); /* 初始背景图 */
-  background-size: cover; /* 图片铺满屏幕 */
-  background-attachment: fixed; /* 背景固定，不随滚动移动 */
-  background-position: center;
-  color: var(--text);
-  font-family: 'Nunito', sans-serif;
-}
-
-
-/* 语录切换动画 */
-#hitokoto, #hitokoto-from {
-  transition: opacity 0.5s ease-in-out; /* 淡入淡出效果，0.5秒完成 */
-}
-/* 切换时的过渡状态 */
-.hitokoto-fade {
-  opacity: 0; /* 完全透明 */
-}
-
-
-
-/* 统一图标颜色适配夜间模式 */
-/* GitHub图标 */
-.github-link svg {
-  fill: var(--text); /* 跟随文本颜色 */
-  transition: fill 0.3s ease;
-}
-
-/* 夜间模式下的GitHub图标 */
-body.dark .github-link svg {
-  fill: var(--text); /* 夜间模式文本为浅色，图标同步 */
-}
-
-/* 夜间模式切换按钮图标（文字形式）*/
-.theme-btn {
-  color: var(--text); /* 按钮文字颜色跟随文本 */
-  transition: color 0.3s ease;
-}
-
-/* 确保按钮在夜间模式下颜色正确 */
-body.dark .theme-btn {
-  color: var(--text);
-}
-
-
-
-/* 添加到CSS中 */
-@media (max-width: 768px) {
-  .buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  button {
-    width: 80%;
-    margin: 5px 0;
-  }
-  
-  h1 {
-    font-size: 18px;
-    padding: 0 10px;
-  }
+/* ===== 响应式 ===== */
+@media (max-width: 600px) {
+  .site-title { font-size: 2.2rem; }
+  .card { padding: 22px 18px; }
 }
