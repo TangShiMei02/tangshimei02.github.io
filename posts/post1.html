@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>如何用CSS画出手绘风格的插画 - TangShiMei</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header style="position: relative;">
+    <h1 class="site-title">手绘CSS技巧</h1>
+    <button id="theme-toggle" class="theme-btn" title="切换夜间模式">🌙</button>
+  </header>
+
+  <main class="post-content">
+    <img src="img/post1.jpg" alt="手绘风格CSS插画" class="post-banner" />
+    <p class="post-date">发布于 2025-08-08</p>
+    
+    <h2>什么是手绘风格的CSS？</h2>
+    <p>其实就是用CSS的线条、边框和动画，模拟手绘的不规则感，比如虚线、波浪线、轻微的抖动效果...</p>
+    
+    <h2>实用技巧1：虚线边框+圆角</h2>
+    <p>用 <code>border: 2px dashed #ff7a7a;</code> 可以做出手绘感边框，搭配大圆角更自然~</p>
+    
+    <h2>实用技巧2：波浪线装饰</h2>
+    <p>用SVG画波浪线，比纯CSS更灵活：</p>
+    <pre><code>&lt;svg width="200" height="40" viewBox="0 0 200 40"&gt;
+  &lt;path d="M0,20 Q50,0 100,20 T200,20" 
+        stroke="#ff7a7a" fill="none" 
+        stroke-width="2" stroke-dasharray="3 2"/&gt;
+&lt;/svg&gt;</code></pre>
+  </main>
+
+  <footer style="margin-top: 60px;">
+    <a href="posts.html" class="btn">← 返回文章列表</a>
+    <br><br>
+    <small>© 2025 TangShiMei</small>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

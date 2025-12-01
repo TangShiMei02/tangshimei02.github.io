@@ -2,52 +2,644 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TangShiMei · 秘密基地</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Georgia&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TangShiMei 的秘密基地</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Nunito:wght@400;600&family=Comic+Neue:wght@400;700&family=Georgia&display=swap" rel="stylesheet">
+  <style>
+    /* 统一CSS变量 - 合并冲突定义，保留核心变量 */
+    :root {
+      --primary: #667eea;
+      --primary-dark: #564ba2;
+      --secondary: #ff7a7a;
+      --bg: #f0f2f5;
+      --card-bg: #fff;
+      --text: #333;
+      --text-light: #666;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --radius: 12px;
+      --font-main: 'Inter', 'Arial', sans-serif;
+      --font-display: 'Comic Neue', cursive;
+    }
+
+    body.dark {
+      --bg: #1a1a2e;
+      --card-bg: #16213e;
+      --text: #f0f0f0;
+      --text-light: #bbbbbb;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background-color 0.3s, color 0.3s;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 18px 0;
+      background: transparent;
+      z-index: 100;
+      transition: var(--transition);
+    }
+
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      padding: 12px 0;
+    }
+
+    body.dark .navbar.scrolled {
+      background: rgba(22, 33, 62, 0.95);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+    }
+
+    .navbar.scrolled .logo {
+      color: var(--primary);
+    }
+
+    body.dark .navbar.scrolled .logo {
+      color: var(--secondary);
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .navbar.scrolled .theme-toggle {
+      color: var(--text);
+    }
+
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transition: opacity 0.5s ease;
+    }
+
+    body.dark .loader {
+      background: rgba(26, 26, 46, 0.8);
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loader-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid var(--card-bg);
+      border-top: 4px solid var(--secondary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 0;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), 
+                  url('https://source.unsplash.com/random/1920x1080/?nature,art') center/cover no-repeat;
+      background-size: cover;
+      transition: background-image 1s ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      text-align: center;
+      color: white;
+      z-index: 1;
+      padding: 20px;
+      max-width: 800px;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeUp 1s forwards 0.3s;
+    }
+
+    @keyframes fadeUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      position: relative;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      font-family: var(--font-display);
+    }
+
+    .hero h1::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: var(--secondary);
+      margin: 20px auto 0;
+      border-radius: 3px;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+      40% { transform: translateY(-20px) translateX(-50%); }
+      60% { transform: translateY(-10px) translateX(-50%); }
+    }
+
+    .cards-section {
+      padding: 100px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+      font-size: 2rem;
+      color: var(--text);
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      animation: fadeIn 1s forwards 0.5s;
+      font-family: 'Georgia', serif;
+      background: linear-gradient(to right, var(--bg), var(--card-bg));
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: var(--primary);
+      margin: 15px auto 0;
+      border-radius: 3px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 30px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: var(--transition);
+      transform: translateY(30px);
+      opacity: 0;
+      animation: fadeUp 0.6s forwards;
+      position: relative;
+      overflow: hidden;
+      border: 3px dashed var(--secondary);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transform: scaleX(0);
+      transition: var(--transition);
+    }
+
+    .card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .card:nth-child(1) { animation-delay: 0.3s; }
+    .card:nth-child(2) { animation-delay: 0.5s; }
+    .card:nth-child(3) { animation-delay: 0.7s; }
+    .card:nth-child(4) { animation-delay: 0.9s; }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      transition: var(--transition);
+      border: 2px dashed var(--secondary);
+    }
+
+    .card:hover .card-img {
+      transform: scale(1.05);
+    }
+
+    .card-icon {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+
+    .card:hover .card-icon {
+      transform: scale(1.1) rotate(5deg);
+      color: var(--secondary);
+    }
+
+    .card h2 {
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+      color: var(--text);
+      font-family: var(--font-display);
+    }
+
+    .card p {
+      margin-bottom: 25px;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      padding: 10px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: var(--transition);
+      font-weight: 500;
+      position: relative;
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    body.dark .btn {
+      background-color: var(--card-bg);
+      color: var(--text);
+    }
+
+    body.dark .btn:hover {
+      background-color: var(--secondary);
+      color: white;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 40px;
+      padding-bottom: 60px;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      transform: translateY(-5px) rotate(10deg);
+      background: var(--primary);
+      color: white;
+    }
+
+    body.dark .social-links a {
+      background: var(--card-bg);
+      color: var(--secondary);
+    }
+
+    body.dark .social-links a:hover {
+      background: var(--secondary);
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+      }
+
+      .card-img {
+        height: 150px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 0 15px;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .card {
+        padding: 25px 15px;
+      }
+
+      .card-img {
+        height: 130px;
+      }
+
+      .btn {
+        padding: 8px 16px;
+        display: block;
+        margin: 15px auto 0;
+      }
+    }
+  </style>
 </head>
 <body>
-  <button id="theme-toggle" class="theme-btn">🌙</button>
+  <div class="loader">
+    <div class="loader-spinner"></div>
+  </div>
 
-  <header>
-    <h1 class="site-title">TangShiMei</h1>
-    <p class="subtitle">手写卡片 · 记录灵感</p>
-    <p id="hitokoto">正在加载一言...</p>
-    <p id="hitokoto-from"></p>
-  </header>
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <i class="fas fa-star"></i> TangShiMei
+      </a>
+      <button class="theme-toggle" id="theme-toggle" title="切换主题">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </nav>
 
-  <div id="time-display"></div>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>欢迎来到 TangShiMei 的秘密基地</h1>
+      <p>这里是我的个人空间，分享我的创作与思考，记录生活中的美好瞬间。</p>
+      <a href="#cards" class="btn">开始探索</a>
+    </div>
+    <div class="scroll-indicator">
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
 
-  <main id="cards" class="card-grid">
-    <a href="about.html" class="card card--about">
-      <h2>关于我</h2>
-      <p>一个喜欢手绘与代码的创作者，正在用卡片堆出自己的宇宙。</p>
-    </a>
+  <section id="cards" class="cards-section">
+    <div class="container">
+      <h2 class="section-title">探索内容</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="https://img.8845.top/acg/loli2.php" alt="博客" class="card-img">
+          <div class="card-icon">
+            <i class="fas fa-blog"></i>
+          </div>
+          <h2>我的博客</h2>
+          <p>记录我的创作与思考，分享前端开发技巧、手绘灵感和日常随笔。</p>
+          <a href="old-index.html" class="btn">访问博客</a>
+        </div>
 
-    <a href="posts.html" class="card card--blog">
-      <h2>最新随笔</h2>
-      <p>《如何让像素风插画动起来》已发布。</p>
-    </a>
+        <div class="card">
+          <img src="https://source.unsplash.com/random/600x400/?gallery" alt="创意作品" class="card-img">
+          <div class="card-icon">
+            <i class="fas fa-paint-brush"></i>
+          </div>
+          <h2>创意作品</h2>
+          <p>展示我的手绘作品、像素风格插画和其他创意设计，用视觉讲述故事。</p>
+          <a href="#" class="btn">查看作品</a>
+        </div>
 
-    <a href="#" class="card card--gallery">
-      <h2>创意作品</h2>
-      <p>手绘、像素插画、视觉实验。</p>
-    </a>
+        <div class="card">
+          <img id="diary-img" alt="生活日记" class="card-img">
+          <div class="card-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <h2>生活日记</h2>
+          <p>记录日常点滴和灵感瞬间，分享生活中的小确幸与思考。</p>
+          <a href="#" class="btn">阅读日记</a>
+        </div>
 
-    <a href="guestbook.html" class="card card--guestbook">
-      <h2>留言互动</h2>
-      <p>写下你的想法，我会认真阅读每一条留言~</p>
-    </a>
-  </main>
+        <div class="card">
+          <img src="https://source.unsplash.com/random/600x400/?message" alt="留言互动" class="card-img">
+          <div class="card-icon">
+            <i class="fas fa-comments"></i>
+          </div>
+          <h2>留言互动</h2>
+          <p>写下你的想法或建议，我们可以一起交流学习，共同成长。</p>
+          <a href="guestbook.html" class="btn">去留言</a>
+        </div>
+      </div>
 
-  <footer>
-    <a href="https://github.com/Tang-is-harding" class="github-link">
-      GitHub
-    </a>
-    <p>© 2025 TangShiMei</p>
-  </footer>
+      <div class="social-links">
+        <a href="https://github.com/Tang-is-harding" target="_blank" title="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://res.abeim.cn/api/qq/?qq=2244182951" target="_blank" title="QQ">
+          <i class="fab fa-qq"></i>
+        </a>
+        <a href="#" target="_blank" title="微信">
+          <i class="fab fa-weixin"></i>
+        </a>
+        <a href="mailto:yangqinhao1101@163.com" title="邮箱">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <a href="https://space.bilibili.com/675768777" target="_blank" title="Bilibili">
+          <i class="fab fa-bilibili"></i>
+        </a>
+      </div>
+    </div>
+  </section>
 
-  <script src="main.js"></script>
+  <script>
+    const imageKeywords = ['nature', 'art', 'illustration', 'hand-drawn', 'creative', 'vintage'];
+
+    function getRandomKeyword() {
+      return imageKeywords[Math.floor(Math.random() * imageKeywords.length)];
+    }
+
+    function changeBackground() {
+      const hero = document.querySelector('.hero');
+      const keyword = getRandomKeyword();
+      const imageUrl = `https://source.unsplash.com/random/1920x1080/?${keyword}`;
+      const img = new Image();
+      img.src = imageUrl;
+      img.onload = function() {
+        hero.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('${imageUrl}')`;
+      }
+    }
+
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    const themeToggle = document.getElementById('theme-toggle');
+    if (localStorage.getItem('theme') === 'dark' || 
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.body.classList.add('dark');
+      themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+    }
+
+    themeToggle.addEventListener('click', function() {
+      const icon = themeToggle.querySelector('i');
+      document.body.classList.toggle('dark');
+      if (document.body.classList.contains('dark')) {
+        icon.classList.replace('fa-moon', 'fa-sun');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        icon.classList.replace('fa-sun', 'fa-moon');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // 加载日记图片
+    async function loadDiaryImage() {
+      try {
+        const res = await fetch('http://www.wudada.online/Api/ScTp');
+        const data = await res.json();
+        document.getElementById('diary-img').src = data.data;
+      } catch (error) {
+        console.error('日记图片加载失败', error);
+        document.getElementById('diary-img').src = 'https://source.unsplash.com/random/600x400/?daily';
+      }
+    }
+
+    window.addEventListener('load', function() {
+      setTimeout(() => {
+        document.querySelector('.loader').classList.add('hidden');
+      }, 800);
+      changeBackground();
+      loadDiaryImage();
+      setInterval(changeBackground, 30000);
+    });
+  </script>
 </body>
 </html>
