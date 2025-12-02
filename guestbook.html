@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>我的留言本</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 20px; max-width: 720px; margin: 0 auto; background: #f9f9f9; }
+    h1 { text-align: center; color: #2c3e50; margin-bottom: 30px; }
+    #twikoo { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body>
+  <h1>✨ 欢迎留言</h1>
+  <div id="twikoo"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.25/dist/twikoo.all.min.js"></script>
+  <script>
+    twikoo.init({
+      envId: 'https://tangshimei02.leleosd.top/', // ← 这是你自己的 Vercel 地址！
+      el: '#twikoo',
+      lang: 'zh-CN',
+      adminEmail: '2244182951@qq.com' // ← 管理员邮箱，自动识别博主
+    });
+  </script>
+</body>
+</html>
